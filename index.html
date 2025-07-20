@@ -12,6 +12,17 @@
 <body>
 
     <div id="header"></div>
+    <script>
+    fetch('/html/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+    </script>
+
+
+
 
     <main class="main--index--page global--main">
         <div class="index--content">
@@ -135,35 +146,14 @@
     </main>
 
     <div id="footer"></div>
-
-
-<script>
-  console.log('Fetching header...');
-  fetch('/html/header.html')
-    .then(res => {
-      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-      return res.text();
-    })
-    .then(data => {
-      console.log('Header fetched:', data);
-      document.getElementById('header').innerHTML = data;
-    })
-    .catch(err => console.error('Error loading header:', err));
-</script>
-
-<script>
-  console.log('Fetching footer...');
-  fetch('/html/footer.html')
-    .then(res => {
-      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-      return res.text();
-    })
-    .then(data => {
-      console.log('Footer fetched:', data);
-      document.getElementById('footer').innerHTML = data;
-    })
-    .catch(err => console.error('Error loading footer:', err));
-</script>
+    <script>
+    fetch('/html/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error));
+    </script>
 
     <script src="/script.js"></script>
 </body>
