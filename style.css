@@ -1,6 +1,6 @@
 :root {
-    --blue--color: #18bfff;
-    --blue--hover--color: #18abe4;
+    --blue--color: #7bbfff;
+    --blue--hover--color: #6fb2e8;
     --red--color: #f82b60;
     --red--hover--color: #dd1d50;
     --yellow--color: #fcb400;
@@ -181,6 +181,38 @@ img {
     left: 0px;
 }
 
+/* Language dropdown styles */
+.language-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.language {
+    padding: 8px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    display: block;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.language:hover {
+    background-color: #f0f0f0;
+}
+
+.en {
+    background-color: #f0f0f0;
+}
+
 .create-dropdown .dropdown-column {
     display: flex;
     flex-direction: column;
@@ -218,10 +250,13 @@ img {
 }
 
 .language {
-    padding: 10px;
-    gap: 10px;
+    padding: 8px;
     font-size: 12px;
     font-weight: 500;
+}
+
+.language-dropdown {
+    justify-content: center;
 }
 
 .language:hover {
@@ -229,16 +264,20 @@ img {
 }
 
 /* HOME PAGE */
-.index--content {
+.index--content, 
+.hiw--content {
     margin-top: 100px;
     width: 100%;
-    max-width: 1224px;
     display: flex;
+}
+
+.index--content {
+    max-width: 1224px;
     flex-direction: column;
     align-items: center;
 }
 
-.main--index--page {
+.global--main {
     width: 100%;
 }
 
@@ -611,8 +650,6 @@ img {
     border-radius: 6px;
     transition: all 0.3s;
     background-color: #f8f9fa;
-    width: 100%;
-    max-width: 100%;
 }
 
 .global--chart--editor input[type="range"] {
@@ -672,11 +709,12 @@ img {
 .global--chart--editor select:focus {
     border-color: var(--blue--color);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(24, 191, 255, 0.1);
+    box-shadow: 0 0 0 2px rgba(123, 191, 255, 0.1);
 }
 
 .chart-type-selector {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 10px;
     padding-bottom: 15px;
@@ -684,7 +722,8 @@ img {
 }
 
 .chart-type-selector label {
-    flex: 1;
+    flex: 1 1 30%;
+    min-width: 120px;
     margin-bottom: 0;
 }
 
@@ -727,15 +766,11 @@ img {
 .chart-type-selector select:focus {
     background-color: #fff;
     border-color: var(--blue--color);
-    box-shadow: 0 0 0 0.2rem rgba(24, 191, 255, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(123, 191, 255, 0.25);
 }
 
 .single-bar-settings,
-.grouped-bar-settings,
-.single-line-settings,
-.multi-line-settings,
-.single-area-settings,
-.multi-area-settings {
+.grouped-bar-settings {
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -762,7 +797,10 @@ img {
 }
 
 .group-inputs,
-.line-inputs {
+.line-inputs,
+.area-inputs,
+.dataset-inputs,
+.label-inputs {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -771,7 +809,9 @@ img {
 
 .group-point,
 .line-point,
-.area-point {
+.area-point,
+.dataset-point,
+.label-point {
     display: flex;
     gap: 12px;
     align-items: center;
@@ -784,28 +824,33 @@ img {
 
 .group-point input[type="text"],
 .line-point input[type="text"],
-.area-point input[type="text"] {
+.area-point input[type="text"],
+.dataset-point input[type="text"],
+.label-point input[type="text"] {
     flex: 1;
     min-width: 120px;
 }
 
 .group-point input[type="color"],
 .line-point input[type="color"],
-.area-point input[type="color"] {
+.area-point input[type="color"],
+.dataset-point input[type="color"] {
     width: 40px;
     height: 40px;
 }
 
 .group-values,
 .line-values,
-.area-values {
+.area-values,
+.dataset-values {
     display: flex;
     gap: 8px;
     flex: 1;
     flex-wrap: wrap;
 }
 
-.data-inputs {
+.data-inputs,
+.label-inputs {
     margin: 20px 0 15px;
 }
 
@@ -835,7 +880,9 @@ img {
 .add-data-point,
 .add-group-point,
 .add-line-point,
-.add-area-point {
+.add-area-point,
+.add-dataset-point,
+.add-label-point {
     background-color: #28a745;
     color: white;
     border: none;
@@ -851,14 +898,18 @@ img {
 .add-data-point:hover,
 .add-group-point:hover,
 .add-line-point:hover,
-.add-area-point:hover {
+.add-area-point:hover,
+.add-dataset-point:hover,
+.add-label-point:hover {
     background-color: #218838;
 }
 
 .remove-data-point,
 .remove-group-point,
 .remove-line-point,
-.remove-area-point {
+.remove-area-point,
+.remove-dataset-point,
+.remove-label-point {
     background-color: #ff4d4d;
     color: white;
     border: none;
@@ -874,7 +925,14 @@ img {
 .single-line-warning,
 .pie-warning,
 .single-area-warning,
-.multi-area-warning {
+.multi-area-warning,
+.single-scatter-warning,
+.multi-scatter-warning,
+.radar-label-warning,
+.radar-dataset-warning,
+.donut-label-warning,
+.donut-data-warning,
+.donut-dataset-warning {
     padding: 12px 24px;
     background-color: var(--yellow--color);
     color: var(--text--color);
@@ -893,7 +951,14 @@ img {
 }
 
 .bar-width-value,
-.line-width-value {
+.line-width-value,
+.point-size-value,
+.dataset-size-value,
+.chart-size-value,
+.chart-width-value,
+.chart-height-value,
+.donut-hole-size-value,
+.stack-gap-value {
     font-size: 13px;
     color: #555;
 }
@@ -933,18 +998,65 @@ img {
     margin-bottom: 10px;
 }
 
+.bar-numbers-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bar-numbers-toggle-container label {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.bar-numbers-toggle-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--blue--color);
+    cursor: pointer;
+}
+
+.bar-numbers-color-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bar-numbers-color-container label {
+    font-size: 14px;
+    color: #555;
+}
+
+.bar-numbers-color-container input[type="color"] {
+    width: 45px;
+    height: 45px;
+    padding: 3px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.bar-numbers-color-container input:focus {
+    border-color: var(--blue--color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(123, 191, 255, 0.1);
+}
+
 .chart--interaction--section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     width: 100%;
-    max-width: 800px;
-    align-items: center;
+    max-width: 1000px;
+    align-items: center; 
 }
 
 .global--chart--view {
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     min-height: 400px;
     border-radius: 10px;
     background-color: white;
@@ -960,11 +1072,16 @@ img {
     overflow: hidden;
 }
 
-#barChart,
-#areaChart {
-    display: block;
+.line-chart-maker .global--chart--view,
+.donut-chart-maker .global--chart--view {
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 25px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 .global--chart--view.fade {
@@ -984,6 +1101,7 @@ img {
     font-size: 15px;
     height: 42px;
     border-radius: 6px;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -991,10 +1109,10 @@ img {
     padding: 0 18px;
     gap: 10px;
     cursor: pointer;
-    transition: all var(--transition-duration);
 }
 
 .global--chart--button--download {
+    transition: all var(--transition-duration);
     background-color: var(--red--color);
     border: none;
     color: white;
@@ -1002,6 +1120,7 @@ img {
 
 .global--chart--button--download:hover {
     background-color: var(--red--hover--color);
+    border: none;
 }
 
 .global--chart--button--copy {
@@ -1013,7 +1132,7 @@ img {
 
 .global--chart--button--copy:hover {
     border: 2px solid var(--text--color);
-    padding: 0 17px; /* Adjust padding to maintain consistent size */
+    padding: 0 17px;
 }
 
 .chart-submit-button {
@@ -1025,12 +1144,7 @@ img {
     font-size: 16px;
     border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s;
     margin-top: 10px;
-}
-
-.chart-submit-button:hover {
-    background-color: var(--red--hover--color);
 }
 
 @keyframes fadeUpdate {
@@ -1054,7 +1168,7 @@ img {
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    opacity: 0;
+    display: none;
     transform: translateY(20px);
     transition: opacity 0.3s, transform 0.3s;
     font-size: 14px;
@@ -1063,35 +1177,9 @@ img {
 }
 
 .notification.show {
+    display: block;
     opacity: 1;
     transform: translateY(0);
-}
-
-/* FOOTER */
-footer {
-    width: 100%;
-    background-color: var(--text--color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    margin-top: 100px;
-}
-
-.footer--content {
-    width: 100%;
-    max-width: 1224px;
-    align-items: center;
-    margin: 10px 0;
-    color: #fff;
-    display: flex;
-    gap: 50px;
-}
-
-.footer--logo--main--text {
-    color: white;
-    font-size: 15px;
 }
 
 /* Area Chart Specific Styles */
@@ -1130,7 +1218,55 @@ footer {
     overflow-y: auto;
 }
 
-.area-chart-maker .global--chart--editor h3 {
+.area-chart-maker .global--chart--view {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 400px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 25px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Scatter Chart Specific Styles */
+.scatter-chart-maker .main--maker--page {
+    margin: 100px auto 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1300px;
+    margin-bottom: 30px;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .scatter-chart-maker .main--maker--page {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.scatter-chart-maker .global--chart--editor {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    background-color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.scatter-chart-maker .global--chart--editor h3 {
     font-size: 22px;
     margin: 0 0 15px;
     color: #333;
@@ -1138,7 +1274,7 @@ footer {
     border-bottom: 1px solid #eee;
 }
 
-.area-chart-maker .chart-type-selector {
+.scatter-chart-maker .chart-type-selector {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -1147,46 +1283,46 @@ footer {
     border-bottom: 1px solid #eee;
 }
 
-.area-chart-maker .single-area-settings,
-.area-chart-maker .multi-area-settings {
+.scatter-chart-maker .single-scatter-settings,
+.scatter-chart-maker .multi-scatter-settings {
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
 
-.area-chart-maker .settings-grid {
+.scatter-chart-maker .settings-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 15px;
 }
 
-.area-chart-maker .chart-title-container,
-.area-chart-maker .x-axis-label-container {
+.scatter-chart-maker .chart-title-container,
+.scatter-chart-maker .x-axis-label-container {
     grid-column: 1 / -1;
     margin-bottom: 10px;
 }
 
-.area-chart-maker .chart-title-input,
-.area-chart-maker .x-axis-label-input,
-.area-chart-maker .y-axis-label-input {
+.scatter-chart-maker .chart-title-input,
+.scatter-chart-maker .x-axis-label-input,
+.scatter-chart-maker .y-axis-label-input {
     width: 100% !important;
     max-width: 100% !important;
 }
 
-.area-chart-maker .color-settings {
+.scatter-chart-maker .color-settings {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     margin: 10px 0;
 }
 
-.area-chart-maker .data-inputs,
-.area-chart-maker .area-inputs {
+.scatter-chart-maker .data-inputs,
+.scatter-chart-maker .dataset-inputs {
     margin: 20px 0 15px;
 }
 
-.area-chart-maker .data-point,
-.area-chart-maker .area-point {
+.scatter-chart-maker .data-point,
+.scatter-chart-maker .dataset-point {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -1197,13 +1333,13 @@ footer {
     transition: all 0.2s ease;
 }
 
-.area-chart-maker .data-point:hover,
-.area-chart-maker .area-point:hover {
+.scatter-chart-maker .data-point:hover,
+.scatter-chart-maker .dataset-point:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.area-chart-maker .add-data-point,
-.area-chart-maker .add-area-point {
+.scatter-chart-maker .add-data-point,
+.scatter-chart-maker .add-dataset-point {
     background-color: #28a745;
     color: white;
     border: none;
@@ -1216,8 +1352,8 @@ footer {
     margin-top: 5px;
 }
 
-.area-chart-maker .remove-data-point,
-.area-chart-maker .remove-area-point {
+.scatter-chart-maker .remove-data-point,
+.scatter-chart-maker .remove-dataset-point {
     background-color: #ff4d4d;
     color: white;
     border: none;
@@ -1229,9 +1365,9 @@ footer {
     margin-left: auto;
 }
 
-.area-chart-maker .global--chart--view {
+.scatter-chart-maker .global--chart--view {
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     min-height: 400px;
     border-radius: 10px;
     background-color: white;
@@ -1240,3 +1376,637 @@ footer {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
+
+/* Line Chart Specific Styles */
+.line-chart-maker .main--maker--page {
+    margin: 100px auto 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1300px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
+}
+
+@media (max-width: 767px) {
+    .line-chart-maker .main--maker--page {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.line-chart-maker .global--chart--editor {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    background-color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.line-chart-maker .global--chart--editor h3 {
+    font-size: 22px;
+    margin: 0 0 15px;
+    color: #333;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.line-chart-maker .global--chart--editor input[type="text"],
+.line-chart-maker .global--chart--editor input[type="number"],
+.line-chart-maker .global--chart--editor select {
+    background-color: transparent;
+}
+
+.line-chart-maker .global--chart--editor input[type="range"] {
+    padding: 8px 0;
+    width: 100%;
+    cursor: pointer;
+}
+
+.line-chart-maker .chart-type-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.line-chart-maker .single-line-settings,
+.line-chart-maker .multi-line-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.line-chart-maker .settings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.line-chart-maker .chart-title-container,
+.line-chart-maker .x-axis-label-container {
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
+}
+
+.line-chart-maker .chart-title-input,
+.line-chart-maker .x-axis-label-input,
+.line-chart-maker .y-axis-label-input {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.line-chart-maker .color-settings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.line-chart-maker .dimension-settings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.line-chart-maker .line-inputs {
+    margin: 20px 0 15px;
+}
+
+.line-chart-maker .line-point {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.line-chart-maker .line-point:hover {
+    box-shadow: none;
+}
+
+.line-chart-maker .add-line-point {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+.line-chart-maker .remove-line-point {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+    margin-left: auto;
+}
+
+.line-chart-maker .chart--action--buttons {
+    justify-content: center;
+}
+
+/* Radar Chart Specific Styles */
+.radar-chart-maker .main--maker--page {
+    margin: 100px auto 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1300px;
+    margin-bottom: 30px;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .radar-chart-maker .main--maker--page {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.radar-chart-maker .global--chart--editor {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    background-color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.radar-chart-maker .global--chart--editor h3 {
+    font-size: 22px;
+    margin: 0 0 15px;
+    color: #333;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.radar-chart-maker .settings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.radar-chart-maker .chart-title-container {
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
+}
+
+.radar-chart-maker .chart-title-input {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.radar-chart-maker .label-inputs,
+.radar-chart-maker .dataset-inputs {
+    margin: 20px 0 15px;
+}
+
+.radar-chart-maker .label-point,
+.radar-chart-maker .dataset-point {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+
+.radar-chart-maker .label-point:hover,
+.radar-chart-maker .dataset-point:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.radar-chart-maker .add-label-point,
+.radar-chart-maker .add-dataset-point {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+.radar-chart-maker .remove-label-point,
+.radar-chart-maker .remove-dataset-point {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+    margin-left: auto;
+}
+
+.radar-chart-maker .dimension-settings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 10px 0;
+}
+
+/* Donut Chart Specific Styles */
+.donut-chart-maker .main--maker--page {
+    margin: 100px auto 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1300px;
+    margin-bottom: 30px;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .donut-chart-maker .main--maker--page {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.donut-chart-maker .global--chart--editor {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    background-color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+/* FOOTER */
+.main--footer {
+    margin-top: auto;
+    background-color: white;
+    padding: 40px 20px;
+    width: 100%;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.main--footer--content {
+    max-width: 1224px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-column h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    color: var(--text--color);
+}
+
+.footer-column a {
+    font-size: 14px;
+    color: var(--text--color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+    color: var(--red--color);
+}
+
+@media (max-width: 768px) {
+    .main--footer--content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column {
+        min-width: 100%;
+    }
+}
+
+footer {
+    width: 100%;
+    background-color: var(--text--color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    margin-top: 100px;
+}
+
+.footer--content {
+    width: 100%;
+    max-width: 1224px;
+    align-items: center;
+    margin: 10px 0;
+    color: #fff;
+    display: flex;
+    gap: 50px;
+}
+
+.footer--logo--main--text {
+    color: white;
+    font-size: 15px;
+}
+
+/* HOW IT WORKS PAGE STYLES */
+.hiw-hero {
+    color: white;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.hiw-hero {
+    margin-bottom: 50px;
+}
+
+.hiw--content {
+    margin-top: 0;
+}
+
+.hiw-hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.hiw-hero-content .subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+.steps-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.step-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.step-number {
+    background: var(--blue--color);
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.step-content {
+    padding: 30px;
+    flex-grow: 1;
+}
+
+.step-content h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #0a2540;
+}
+
+.step-description {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #4a4a4a;
+}
+
+.step-description p {
+    margin-bottom: 10px;
+}
+
+.step-images {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.step-images img {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 45%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.step-images img:hover {
+    transform: scale(1.02);
+}
+
+.features-section {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.features-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 50px;
+    color: #0a2540;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    color: #0a2540;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.cta-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #7bbfff 0%, #f82b60 100%);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hiw-hero-content h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hiw-hero-content .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .step-card {
+        flex-direction: column;
+    }
+    
+    .step-number {
+        width: 100%;
+        height: 60px;
+        font-size: 2rem;
+    }
+    
+    .step-images {
+        flex-direction: column;
+    }
+    
+    .step-images img {
+        max-width: 100%;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hiw--create--chart {
+    background-color: transparent;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.hiw--create--chart a {
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    display: flex;
+    background-color: var(--red--color);
+    text-decoration: none;
+    align-items: center;
+    gap: 13px;
+}
+
+.hiw--create--chart a:hover {
+    background-color: var(--red--hover--color);
+}
+
+.hiw--create--chart a img {
+    height: 15px;
+}
+
+
+
+
