@@ -1,4 +1,3 @@
-//HOMEPAGE
 document.addEventListener('DOMContentLoaded', () => {
     const buttonGroup = document.querySelector('.button-group');
     const dropdownMenu = document.querySelector('.dropdown-menu');
