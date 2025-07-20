@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scatter Chart Maker - imgcharts.com</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="/shared/img/gblimgtabicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body class="scatter-chart-maker">
+  <div id="header"></div>
+  <script>
+    fetch('/html/header.html')
+      .then(res => res.text())
+      .then(data => (document.getElementById('header').innerHTML = data))
+      .catch(err => console.error('Error loading header:', err));
+  </script>
+
+  <main class="main--maker--page">
+    <div class="global--chart--editor">
+      <h3>Chart Editor</h3>
+
+      <div class="chart-type-selector">
+        <label>
+          Chart Type:
+          <select class="chart-type-input">
+            <option value="single" selected>Single Scatter Dataset</option>
+            <option value="multi">Multi Scatter Dataset</option>
+          </select>
+        </label>
+      </div>
+
+      <!-- Single Scatter Settings -->
+      <div class="single-scatter-settings">
+        <div class="settings-grid">
+          <div class="chart-title-container">
+            <label>
+              Chart Title:
+              <input type="text" class="chart-title-input" placeholder="Enter chart title" value="Scatter Chart" />
+            </label>
+          </div>
+          <div class="x-axis-label-container">
+            <label>
+              X-Axis Label:
+              <input type="text" class="x-axis-label-input" placeholder="e.g., X Values" value="X Values" />
+            </label>
+          </div>
+          <label>
+            Y-Axis Label:
+            <input type="text" class="y-axis-label-input" placeholder="e.g., Y Values" value="Y Values" />
+          </label>
+        </div>
+
+        <div class="color-settings">
+          <label>
+            Point Color:
+            <input type="color" class="point-color-input" value="#007bff" />
+          </label>
+          <label>
+            Point Size (px):
+            <input type="range" class="point-size-input" min="2" max="20" value="5" />
+            <span class="point-size-value">5px</span>
+          </label>
+        </div>
+
+        <div class="data-inputs">
+          <h4>Data Points</h4>
+          <div class="single-scatter-warning">
+            Add at least two data points for a meaningful chart.
+          </div>
+          <div class="data-point">
+            <div class="data-point-row">
+              <input type="number" class="data-x-value" placeholder="X Value" value="1" step="0.01" />
+              <input type="number" class="data-y-value" placeholder="Y Value" value="10" step="0.01" />
+              <button class="remove-data-point">Remove</button>
+            </div>
+          </div>
+          <div class="data-point">
+            <div class="data-point-row">
+              <input type="number" class="data-x-value" placeholder="X Value" value="2" step="0.01" />
+              <input type="number" class="data-y-value" placeholder="Y Value" value="15" step="0.01" />
+              <button class="remove-data-point">Remove</button>
+            </div>
+          </div>
+          <button class="add-data-point">Add Data Point</button>
+        </div>
+
+        <button class="toggle-advanced-settings">
+          Show Advanced Settings
+        </button>
+        <div class="advanced-settings" style="display: none;">
+          <h4>Advanced Settings</h4>
+          <div class="advanced-settings-note">
+            Charts are responsive by default. Set custom dimensions for precise control.
+          </div>
+          <div class="dimension-settings">
+            <label>
+              Background Color:
+              <input type="color" class="background-color-input" value="#ffffff" />
+            </label>
+            <label>
+              Text Color:
+              <input type="color" class="text-color-input" value="#000000" />
+            </label>
+            <label>
+              Chart Width (px):
+              <input type="number" class="chart-width-input" min="400" max="2000" value="800" />
+            </label>
+            <label>
+              Chart Height (px):
+              <input type="number" class="chart-height-input" min="300" max="2000" value="400" />
+            </label>
+            <label>
+              Show Grid Lines:
+              <input type="checkbox" class="show-grid-input" checked />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi Scatter Settings -->
+      <div class="multi-scatter-settings" style="display: none;">
+        <div class="settings-grid">
+          <div class="chart-title-container">
+            <label>
+              Chart Title:
+              <input type="text" class="chart-title-input" placeholder="Enter chart title" value="Multi Scatter Chart" />
+            </label>
+          </div>
+          <div class="x-axis-label-container">
+            <label>
+              X-Axis Label:
+              <input type="text" class="x-axis-label-input" placeholder="e.g., X Values" value="X Values" />
+            </label>
+          </div>
+          <label>
+            Y-Axis Label:
+            <input type="text" class="y-axis-label-input" placeholder="e.g., Y Values" value="Y Values" />
+          </label>
+        </div>
+
+        <div class="dataset-inputs">
+          <h4>Datasets</h4>
+          <div class="multi-scatter-warning">
+            Add at least one dataset with at least two data points.
+          </div>
+          <div class="dataset-point">
+            <input type="text" class="dataset-label" placeholder="Dataset Label" value="Dataset 1" />
+            <input type="color" class="dataset-color" value="#007bff" />
+            <input type="range" class="dataset-size" min="2" max="20" value="5" />
+            <span class="dataset-size-value">5px</span>
+            <button class="remove-dataset-point">Remove</button>
+          </div>
+          <div class="dataset-point">
+            <input type="text" class="dataset-label" placeholder="Dataset Label" value="Dataset 2" />
+            <input type="color" class="dataset-color" value="#ff4d4d" />
+            <input type="range" class="dataset-size" min="2" max="20" value="5" />
+            <span class="dataset-size-value">5px</span>
+            <button class="remove-dataset-point">Remove</button>
+          </div>
+          <button class="add-dataset-point">Add Dataset</button>
+        </div>
+
+        <div class="data-inputs">
+          <h4>Data Points</h4>
+          <div class="data-point">
+            <div class="data-point-row">
+              <input type="number" class="data-x-value" placeholder="X Value" step="0.01" />
+              <div class="dataset-values"></div>
+              <button class="remove-data-point">Remove</button>
+            </div>
+          </div>
+          <button class="add-data-point">Add Data Point</button>
+        </div>
+
+        <button class="toggle-advanced-settings">Show Advanced Settings</button>
+        <div class="advanced-settings" style="display: none;">
+          <h4>Advanced Settings</h4>
+          <div class="advanced-settings-note">
+            Charts are responsive by default. Set custom dimensions for precise control.
+          </div>
+          <div class="dimension-settings">
+            <label>
+              Background Color:
+              <input type="color" class="background-color-input" value="#ffffff" />
+            </label>
+            <label>
+              Text Color:
+              <input type="color" class="text-color-input" value="#000000" />
+            </label>
+            <label>
+              Chart Width (px):
+              <input type="number" class="chart-width-input" min="400" max="2000" value="800" />
+            </label>
+            <label>
+              Chart Height (px):
+              <input type="number" class="chart-height-input" min="300" max="2000" value="400" />
+            </label>
+            <label>
+              Border Radius (px):
+              <input type="range" class="border-radius-input" min="0" max="20" value="10" />
+              <span class="border-radius-value">10px</span>
+            </label>
+            <label>
+              Show Grid Lines:
+              <input type="checkbox" class="show-grid-input" checked />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button class="chart-submit-button">Update Chart</button>
+    </div>
+
+    <div class="chart--interaction--section">
+      <div class="global--chart--view">
+        <canvas id="scatterChart"></canvas>
+      </div>
+      <div class="chart--action--buttons">
+        <button class="global--chart--button--download button-extract">
+          Download as PNG
+          <img src="/shared/img/gblimgdownload.png" height="15" alt="Download" />
+        </button>
+        <button class="global--chart--button--copy button-extract">
+          Copy to Clipboard
+          <img src="/shared/img/gblimgcopy.png" height="18" alt="Copy" />
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <script>
+    fetch('/html/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+  </script>
+
+  <div class="notification" id="copyNotification">Copied to clipboard!</div>
+  <div class="notification" id="downloadNotification">Download started!</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Chart instance and configuration variables
+      let chartInstance = null;
+      let currentBgColor = '#ffffff';
+      let currentChartType = 'single';
+
+      // DOM Elements
+      const chartCanvas = document.getElementById('scatterChart');
+      const chartTypeSelector = document.querySelector('.chart-type-input');
+      const updateButton = document.querySelector('.chart-submit-button');
+      const downloadButton = document.querySelector('.global--chart--button--download');
+      const copyButton = document.querySelector('.global--chart--button--copy');
+      const copyNotification = document.getElementById('copyNotification');
+      const downloadNotification = document.getElementById('downloadNotification');
+
+      // Initialize the chart
+      function initializeChart() {
+        const initialWidth = 800;
+        const initialHeight = 400;
+        const initialBorderRadius = 10; // Default border radius
+        updateChartDimensions(initialWidth, initialHeight);
+
+        // Set default border radius on initialization
+        document.querySelector('.global--chart--view').style.borderRadius = `${initialBorderRadius}px`;
+
+        const ctx = chartCanvas.getContext('2d');
+        let dataConfig;
+
+        if (currentChartType === 'single') {
+          dataConfig = {
+            datasets: [{
+              label: 'Dataset 1',
+              data: [
+                { x: 1, y: 10 },
+                { x: 2, y: 15 },
+                { x: 3, y: 12 }
+              ],
+              backgroundColor: '#007bff',
+              pointRadius: 5,
+              pointHoverRadius: 7
+            }]
+          };
+        } else {
+          dataConfig = {
+            datasets: []
+          };
+        }
+
+        chartInstance = new Chart(ctx, {
+          type: 'scatter',
+          data: dataConfig,
+          options: getChartOptions('Scatter Chart', 'X Values', 'Y Values', '#000000', true),
+          plugins: [{
+            id: 'customCanvasBackground',
+            beforeDraw: (chart) => {
+              const ctx = chart.ctx;
+              ctx.save();
+              ctx.fillStyle = currentBgColor;
+              ctx.fillRect(0, 0, chart.width, chart.height);
+              ctx.restore();
+            }
+          }]
+        });
+      }
+
+      // Get chart options based on configuration
+      function getChartOptions(title, xAxis, yAxis, textColor, showGrid) {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: title,
+              font: { size: 18, family: 'Poppins', weight: 500 },
+              color: textColor
+            },
+            legend: {
+              display: currentChartType === 'multi',
+              position: 'top',
+              labels: {
+                font: { size: 12, family: 'Poppins', weight: 500 },
+                color: textColor
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: xAxis,
+                font: { size: 14, family: 'Poppins', weight: 500 },
+                color: textColor
+              },
+              ticks: {
+                color: textColor,
+                font: { size: 12, family: 'Poppins', weight: 500 }
+              },
+              grid: {
+                display: showGrid,
+                color: '#e0e0e0'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: yAxis,
+                font: { size: 14, family: 'Poppins', weight: 500 },
+                color: textColor
+              },
+              ticks: {
+                color: textColor,
+                font: { size: 12, family: 'Poppins', weight: 500 }
+              },
+              grid: {
+                display: showGrid,
+                color: '#e0e0e0'
+              }
+            }
+          }
+        };
+      }
+
+      // Update chart dimensions
+      function updateChartDimensions(width, height) {
+        const chartView = document.querySelector('.global--chart--view');
+        chartView.style.width = `${width}px`;
+        chartView.style.height = `${height}px`;
+        chartView.style.minHeight = `${height}px`;
+
+        chartCanvas.style.width = `${width}px`;
+        chartCanvas.style.height = `${height}px`;
+        chartCanvas.width = width;
+        chartCanvas.height = height;
+
+        if (chartInstance) {
+          chartInstance.resize();
+        }
+      }
+
+      // Update dataset values for multi-scatter charts
+      function updateDatasetValues() {
+        const datasetInputs = document.querySelectorAll('.dataset-point');
+        const dataPoints = document.querySelectorAll('.multi-scatter-settings .data-point');
+
+        dataPoints.forEach(dataPoint => {
+          const datasetValuesContainer = dataPoint.querySelector('.dataset-values');
+          const currentValues = Array.from(dataPoint.querySelectorAll('.data-y-value')).map(input => input.value);
+          datasetValuesContainer.innerHTML = '';
+
+          datasetInputs.forEach((dataset, index) => {
+            const valueInput = document.createElement('input');
+            valueInput.type = 'number';
+            valueInput.className = 'data-y-value';
+            valueInput.step = '0.01';
+            valueInput.placeholder = `Y Value for Dataset ${index + 1}`;
+            valueInput.value = currentValues[index] || '';
+            datasetValuesContainer.appendChild(valueInput);
+          });
+        });
+      }
+
+      // Show notification
+      function showNotification(element, message) {
+        element.textContent = message;
+        element.classList.add('show');
+        setTimeout(() => {
+          element.classList.remove('show');
+        }, 2000);
+      }
+
+      // Event Listeners
+      chartTypeSelector.addEventListener('change', (e) => {
+        currentChartType = e.target.value;
+        document.querySelectorAll('.single-scatter-settings, .multi-scatter-settings').forEach(el => {
+          el.style.display = 'none';
+        });
+        document.querySelector(`.${currentChartType}-scatter-settings`).style.display = 'block';
+        if (currentChartType === 'multi') {
+          updateDatasetValues();
+        }
+        updateButton.click();
+      });
+
+      // Add data point
+      document.querySelectorAll('.add-data-point').forEach(button => {
+        button.addEventListener('click', () => {
+          const dataInputs = button.closest('.data-inputs');
+          const newDataPoint = document.createElement('div');
+          newDataPoint.className = 'data-point';
+          newDataPoint.innerHTML = `
+            <div class="data-point-row">
+              <input type="number" class="data-x-value" placeholder="X Value" step="0.01" />
+              ${currentChartType === 'multi' ? '<div class="dataset-values"></div>' : '<input type="number" class="data-y-value" placeholder="Y Value" step="0.01" />'}
+              <button class="remove-data-point">Remove</button>
+            </div>
+          `;
+          dataInputs.insertBefore(newDataPoint, button);
+          if (currentChartType === 'multi') {
+            updateDatasetValues();
+          }
+        });
+      });
+
+      // Add dataset point
+      document.querySelectorAll('.add-dataset-point').forEach(button => {
+        button.addEventListener('click', () => {
+          const datasetInputs = button.closest('.dataset-inputs');
+          const newDatasetPoint = document.createElement('div');
+          newDatasetPoint.className = 'dataset-point';
+          const randomColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+          newDatasetPoint.innerHTML = `
+            <input type="text" class="dataset-label" placeholder="Dataset Label" />
+            <input type="color" class="dataset-color" value="${randomColor}" />
+            <input type="range" class="dataset-size" min="2" max="20" value="5" />
+            <span class="dataset-size-value">5px</span>
+            <button class="remove-dataset-point">Remove</button>
+          `;
+          datasetInputs.insertBefore(newDatasetPoint, button);
+          updateDatasetValues();
+        });
+      });
+
+      // Remove elements
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-data-point')) {
+          if (e.target.closest('.data-inputs').querySelectorAll('.data-point').length > 1) {
+            e.target.closest('.data-point').remove();
+          }
+        }
+        if (e.target.classList.contains('remove-dataset-point')) {
+          if (document.querySelectorAll('.dataset-point').length > 1) {
+            e.target.closest('.dataset-point').remove();
+            updateDatasetValues();
+          }
+        }
+      });
+
+      // Update range value displays
+      document.addEventListener('input', (e) => {
+        if (e.target.classList.contains('point-size-input') || e.target.classList.contains('dataset-size') || e.target.classList.contains('border-radius-input')) {
+          const valueDisplay = e.target.nextElementSibling;
+          if (valueDisplay && (valueDisplay.classList.contains('point-size-value') || valueDisplay.classList.contains('dataset-size-value') || valueDisplay.classList.contains('border-radius-value'))) {
+            valueDisplay.textContent = `${e.target.value}px`;
+          }
+        }
+      });
+
+      // Toggle advanced settings
+      document.querySelectorAll('.toggle-advanced-settings').forEach(button => {
+        button.addEventListener('click', () => {
+          const advancedSettings = button.nextElementSibling;
+          const isVisible = advancedSettings.style.display === 'block';
+          advancedSettings.style.display = isVisible ? 'none' : 'block';
+          button.textContent = isVisible ? 'Show Advanced Settings' : 'Hide Advanced Settings';
+        });
+      });
+
+      // Update chart
+      updateButton.addEventListener('click', () => {
+        try {
+          const title = document.querySelector(`.${currentChartType}-scatter-settings .chart-title-input`).value || 'Scatter Chart';
+          const xAxis = document.querySelector(`.${currentChartType}-scatter-settings .x-axis-label-input`).value || 'X Values';
+          const yAxis = document.querySelector(`.${currentChartType}-scatter-settings .y-axis-label-input`).value || 'Y Values';
+          const bgColor = document.querySelector(`.${currentChartType}-scatter-settings .background-color-input`).value || '#ffffff';
+          const textColor = document.querySelector(`.${currentChartType}-scatter-settings .text-color-input`).value || '#000000';
+          const showGrid = document.querySelector(`.${currentChartType}-scatter-settings .show-grid-input`).checked;
+          const chartWidth = parseInt(document.querySelector(`.${currentChartType}-scatter-settings .chart-width-input`).value) || 800;
+          const chartHeight = parseInt(document.querySelector(`.${currentChartType}-scatter-settings .chart-height-input`).value) || 400;
+          const borderRadius = parseInt(document.querySelector(`.${currentChartType}-scatter-settings .border-radius-input`).value) || 10;
+
+          currentBgColor = bgColor;
+          updateChartDimensions(chartWidth, chartHeight);
+
+          if (chartInstance) {
+            chartInstance.destroy();
+          }
+
+          const ctx = chartCanvas.getContext('2d');
+          let dataConfig;
+
+          if (currentChartType === 'single') {
+            const pointColor = document.querySelector('.single-scatter-settings .point-color-input').value || '#007bff';
+            const pointSize = parseInt(document.querySelector('.single-scatter-settings .point-size-input').value) || 5;
+            const dataPoints = Array.from(document.querySelectorAll('.single-scatter-settings .data-point')).map(point => {
+              const x = parseFloat(point.querySelector('.data-x-value').value) || 0;
+              const y = parseFloat(point.querySelector('.data-y-value').value) || 0;
+              return { x, y };
+            });
+
+            dataConfig = {
+              datasets: [{
+                label: 'Dataset 1',
+                data: dataPoints.length > 0 ? dataPoints : [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 12 }],
+                backgroundColor: pointColor,
+                pointRadius: pointSize,
+                pointHoverRadius: pointSize + 2
+              }]
+            };
+          } else {
+            const datasetInputs = document.querySelectorAll('.dataset-point');
+            const datasets = Array.from(datasetInputs).map((dataset, index) => {
+              const datasetLabel = dataset.querySelector('.dataset-label').value || `Dataset ${index + 1}`;
+              const datasetColor = dataset.querySelector('.dataset-color').value;
+              const datasetSize = parseInt(dataset.querySelector('.dataset-size').value) || 5;
+              const dataPoints = Array.from(document.querySelectorAll('.multi-scatter-settings .data-point')).map((point, pointIndex) => {
+                const x = parseFloat(point.querySelector('.data-x-value').value) || pointIndex + 1;
+                const yInputs = point.querySelectorAll('.data-y-value');
+                const y = parseFloat(yInputs[index].value) || 0;
+                return { x, y };
+              });
+
+              return {
+                label: datasetLabel,
+                data: dataPoints,
+                backgroundColor: datasetColor,
+                pointRadius: datasetSize,
+                pointHoverRadius: datasetSize + 2
+              };
+            });
+
+            dataConfig = {
+              datasets: datasets
+            };
+          }
+
+          chartInstance = new Chart(ctx, {
+            type: 'scatter',
+            data: dataConfig,
+            options: getChartOptions(title, xAxis, yAxis, textColor, showGrid),
+            plugins: [{
+              id: 'customCanvasBackground',
+              beforeDraw: (chart) => {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.fillStyle = currentBgColor;
+                ctx.fillRect(0, 0, chart.width, chart.height);
+                ctx.restore();
+              }
+            }]
+          });
+
+          document.querySelector('.global--chart--view').style.borderRadius = `${borderRadius}px`;
+          document.querySelector('.global--chart--view').classList.add('fade');
+          setTimeout(() => {
+            document.querySelector('.global--chart--view').classList.remove('fade');
+          }, 400);
+        } catch (error) {
+          console.error('Error updating chart:', error);
+        }
+      });
+
+      // Download chart
+      downloadButton.addEventListener('click', () => {
+        try {
+          const canvasElement = document.getElementById('scatterChart');
+          const dataUrl = canvasElement.toDataURL('image/png', 1.0);
+
+          const link = document.createElement('a');
+          link.download = 'scatter-chart.png';
+          link.href = dataUrl;
+          link.click();
+
+          showNotification(downloadNotification, 'Download started!');
+        } catch (error) {
+          console.error('Error downloading chart:', error);
+        }
+      });
+
+      // Copy to clipboard
+      copyButton.addEventListener('click', () => {
+        try {
+          const canvasElement = document.getElementById('scatterChart');
+          canvasElement.toBlob(blob => {
+            const item = new ClipboardItem({ 'image/png': blob });
+            navigator.clipboard.write([item]).then(() => {
+              showNotification(copyNotification, 'Copied to clipboard!');
+            }).catch(err => console.error('Error copying to clipboard:', err));
+          }, 'image/png', 1.0);
+        } catch (error) {
+          console.error('Error copying chart:', error);
+        }
+      });
+
+      // Initialize the chart
+      initializeChart();
+    });
+  </script>
+</body>
+</html>

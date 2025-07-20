@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Line Chart Maker - imgcharts.com</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="/shared/img/gblimgtabicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body class="line-chart-maker">
+  <div id="header"></div>
+  <script>
+    fetch('/html/header.html')
+      .then(res => res.text())
+      .then(data => (document.getElementById('header').innerHTML = data))
+      .catch(err => console.error('Error loading header:', err));
+  </script>
+
+  <main class="main--maker--page">
+    <div class="global--chart--editor">
+      <h3>Chart Editor</h3>
+
+      <div class="chart-type-selector">
+        <label>
+          Chart Type:
+          <select class="chart-type-input">
+            <option value="single">Single Line Chart</option>
+            <option value="multi">Multi-Line Chart</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="single-line-settings">
+        <label>
+          Chart Title:
+          <input type="text" class="chart-title-input" placeholder="Enter chart title" />
+        </label>
+
+        <label>
+          X-Axis Label:
+          <input type="text" class="x-axis-label-input" placeholder="e.g., Time Period" />
+        </label>
+
+        <label>
+          Y-Axis Label:
+          <input type="text" class="y-axis-label-input" placeholder="e.g., Values" />
+        </label>
+
+        <label>
+          Line Color:
+          <input type="color" class="line-color-input" value="#007bff" />
+        </label>
+
+        <label class="line-width-label">
+          Line Width (px):
+          <input type="range" class="line-width-input" min="1" max="10" value="3" />
+          <span class="line-width-value">3px</span>
+        </label>
+
+        <label>
+          Show Points:
+          <input type="checkbox" class="show-points-input" checked />
+        </label>
+
+        <div class="data-inputs">
+          <h4>Data Points</h4>
+          <div class="single-line-warning" style="display: none;">
+            Add more data points for a more meaningful chart.
+          </div>
+          <div class="data-point">
+            <input type="text" class="data-label" placeholder="Label" />
+            <input type="number" class="data-value" min="0" placeholder="Value" />
+            <button class="remove-data-point">Remove</button>
+          </div>
+          <button class="add-data-point">Add Data Point</button>
+        </div>
+
+        <button class="toggle-advanced-settings">
+          Show Advanced Settings
+        </button>
+        <div class="advanced-settings" style="display: none;">
+          <h4>Advanced Settings</h4>
+          <div class="advanced-settings-note">
+            Charts are responsive by default. Set custom size for precise control (e.g., for export).
+          </div>
+          <label>
+            Background Color:
+            <input type="color" class="background-color-input" value="#ffffff" />
+          </label>
+          <label>
+            Text Color:
+            <input type="color" class="text-color-input" value="#000000" />
+          </label>
+          <div class="dimension-settings">
+            <label>
+              Chart Width (px):
+              <input type="range" class="chart-width-input" min="600" max="1000" value="800" />
+              <span class="chart-width-value">800px</span>
+            </label>
+            <label>
+              Chart Height (px):
+              <input type="range" class="chart-height-input" min="300" max="600" value="400" />
+              <span class="chart-height-value">400px</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="multi-line-settings" style="display: none;">
+        <label>
+          Chart Title:
+          <input type="text" class="chart-title-input" placeholder="Enter chart title" />
+        </label>
+
+        <label>
+          X-Axis Label:
+          <input type="text" class="x-axis-label-input" placeholder="e.g., Time Period" />
+        </label>
+
+        <label>
+          Y-Axis Label:
+          <input type="text" class="y-axis-label-input" placeholder="e.g., Values" />
+        </label>
+
+        <div class="line-inputs">
+          <h4>Lines</h4>
+          <div class="line-point">
+            <input type="text" class="line-label" placeholder="Line Label" />
+            <input type="color" class="line-color" value="#007bff" />
+            <button class="remove-line-point">Remove</button>
+          </div>
+          <div class="line-point">
+            <input type="text" class="line-label" placeholder="Line Label" />
+            <input type="color" class="line-color" value="#ff4d4d" />
+            <button class="remove-line-point">Remove</button>
+          </div>
+          <button class="add-line-point">Add Line</button>
+        </div>
+
+        <div class="data-inputs">
+          <h4>Data Points</h4>
+          <div class="data-point">
+            <input type="text" class="data-label" placeholder="Label" />
+            <div class="line-values">
+              <input type="number" class="data-value" min="0" placeholder="Value for Line 1" />
+              <input type="number" class="data-value" min="0" placeholder="Value for Line 2" />
+            </div>
+            <button class="remove-data-point">Remove</button>
+          </div>
+          <button class="add-data-point">Add Data Point</button>
+        </div>
+
+        <button class="toggle-advanced-settings">Show Advanced Settings</button>
+        <div class="advanced-settings" style="display: none;">
+          <h4>Advanced Settings</h4>
+          <div class="advanced-settings-note">
+            Charts are responsive by default. Set custom size for precise control (e.g., for export).
+          </div>
+          <label>
+            Background Color:
+            <input type="color" class="background-color-input" value="#ffffff" />
+          </label>
+          <label>
+            Text Color:
+            <input type="color" class="text-color-input" value="#000000" />
+          </label>
+          <div class="dimension-settings">
+            <label>
+              Chart Width (px):
+              <input type="range" class="chart-width-input" min="600" max="1000" value="800" />
+              <span class="chart-width-value">800px</span>
+            </label>
+            <label>
+              Chart Height (px):
+              <input type="range" class="chart-height-input" min="300" max="600" value="400" />
+              <span class="chart-height-value">400px</span>
+            </label>
+          </div>
+          <label class="line-width-label">
+            Line Width (px):
+            <input type="range" class="line-width-input" min="1" max="10" value="3" />
+            <span class="line-width-value">3px</span>
+          </label>
+          <label>
+            Show Points:
+            <input type="checkbox" class="show-points-input" checked />
+          </label>
+        </div>
+      </div>
+
+      <button class="chart-submit-button">Update Chart</button>
+    </div>
+
+    <div class="chart--interaction--section">
+      <div class="global--chart--view">
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="chart--action--buttons">
+        <div class="global--chart--button--download button-extract">
+          Download as PNG
+          <img src="/shared/img/gblimgdownload.png" height="15" alt="Download" />
+        </div>
+        <div class="global--chart--button--copy button-extract">
+          Copy to Clipboard
+          <img src="/shared/img/gblimgcopy.png" height="18" alt="Copy" />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <script>
+    fetch('/html/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+  </script>
+
+  <div class="notification" id="copyNotification">Copied to clipboard!</div>
+  <div class="notification" id="downloadNotification">Download started!</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+    let chartInstance = null;
+    let currentBgColor = '#ffffff';
+    let canShowCopyNotification = false; // Flag for copy notification
+    let canShowDownloadNotification = false; // Flag for download notification
+
+    // Immediately hide both notifications on script execution
+    (function() {
+      const copyNotification = document.getElementById('copyNotification');
+      const downloadNotification = document.getElementById('downloadNotification');
+      if (copyNotification) {
+        copyNotification.classList.remove('show');
+        copyNotification.style.display = 'none';
+        console.log('Copy notification hidden on script initialization');
+      }
+      if (downloadNotification) {
+        downloadNotification.classList.remove('show');
+        downloadNotification.style.display = 'none';
+        console.log('Download notification hidden on script initialization');
+      }
+    })();
+
+    const backgroundColorPlugin = {
+      id: 'customCanvasBackground',
+      beforeDraw: (chart) => {
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.fillStyle = currentBgColor;
+        ctx.fillRect(0, 0, chart.width, chart.height);
+        ctx.restore();
+      }
+    };
+
+    function updateChartDimensions(width, height) {
+      const chartView = document.querySelector('.global--chart--view');
+      const canvas = document.getElementById('lineChart');
+      
+      const effectiveWidth = Math.max(width, 600);
+      const effectiveHeight = Math.max(height, 300);
+      
+      chartView.style.width = `${effectiveWidth}px`;
+      chartView.style.height = `${effectiveHeight}px`;
+      chartView.style.minHeight = `${effectiveHeight}px`;
+      
+      canvas.style.width = `${effectiveWidth}px`;
+      canvas.style.height = `${effectiveHeight}px`;
+      canvas.width = effectiveWidth * window.devicePixelRatio;
+      canvas.height = effectiveHeight * window.devicePixelRatio;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      
+      if (chartInstance) {
+        chartInstance.resize();
+      }
+    }
+
+    function initializeChart() {
+      const ctx = document.getElementById('lineChart').getContext('2d');
+      if (!ctx) {
+        console.error('Canvas context not found for lineChart');
+        return;
+      }
+      
+      const initialWidth = parseInt(document.querySelector('.single-line-settings .chart-width-input').value) || 800;
+      const initialHeight = parseInt(document.querySelector('.single-line-settings .chart-height-input').value) || 400;
+      updateChartDimensions(initialWidth, initialHeight);
+      
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+          datasets: [{
+            label: '',
+            data: [65, 59, 80, 81],
+            borderColor: '#007bff',
+            backgroundColor: 'rgba(0, 123, 255, 0.1)',
+            borderWidth: 3,
+            tension: 0.1,
+            fill: false,
+            pointRadius: 5,
+            pointHoverRadius: 7
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: {
+            padding: {
+              top: 15,
+              bottom: 20
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: 'Line Chart',
+              font: { size: 18, family: 'Poppins', weight: 500, style: 'normal' },
+              color: '#000000',
+              padding: {
+                top: 0,
+                bottom: 10
+              }
+            },
+            legend: {
+              display: false,
+              position: 'top',
+              labels: {
+                font: { size: 12, family: 'Poppins', weight: 400, style: 'normal' },
+                color: '#000000',
+                padding: 20
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Time Period',
+                font: { size: 14, family: 'Poppins', weight: 500, style: 'normal' },
+                color: '#000000'
+              },
+              ticks: {
+                color: '#000000',
+                font: { size: 12, family: 'Poppins', weight: 400, style: 'normal' }
+              },
+              grid: {
+                display: true,
+                color: '#e0e0e0'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Values',
+                font: { size: 14, family: 'Poppins', weight: 500, style: 'normal' },
+                color: '#000000'
+              },
+              ticks: {
+                color: '#000000',
+                font: { size: 12, family: 'Poppins', weight: 400, style: 'normal' }
+              },
+              beginAtZero: true,
+              grid: {
+                color: '#e0e0e0'
+              }
+            }
+          }
+        },
+        plugins: [backgroundColorPlugin]
+      });
+    }
+
+    function updateLineValues() {
+      const lineInputs = document.querySelectorAll('.line-point');
+      const dataPoints = document.querySelectorAll('.multi-line-settings .data-point');
+      const lineCount = lineInputs.length;
+
+      dataPoints.forEach(dataPoint => {
+        const lineValuesContainer = dataPoint.querySelector('.line-values');
+        const currentValues = Array.from(dataPoint.querySelectorAll('.data-value')).map(input => input.value);
+        lineValuesContainer.innerHTML = '';
+        lineInputs.forEach((line, index) => {
+          const valueInput = document.createElement('input');
+          valueInput.type = 'number';
+          valueInput.className = 'data-value';
+          valueInput.min = '0';
+          valueInput.placeholder = `Value for Line ${index + 1}`;
+          valueInput.value = currentValues[index] || '';
+          lineValuesContainer.appendChild(valueInput);
+        });
+      });
+    }
+
+    function updateSingleLineWarning() {
+      const dataPoints = document.querySelectorAll('.single-line-settings .data-point');
+      const warning = document.querySelector('.single-line-warning');
+      if (dataPoints.length === 1) {
+        warning.style.display = 'block';
+      } else {
+        warning.style.display = 'none';
+      }
+    }
+
+    document.querySelectorAll('.line-width-input').forEach(input => {
+      input.addEventListener('input', function() {
+        const valueDisplay = this.nextElementSibling;
+        if (valueDisplay && valueDisplay.classList.contains('line-width-value')) {
+          valueDisplay.textContent = `${this.value}px`;
+        }
+      });
+    });
+
+    document.querySelectorAll('.chart-width-input').forEach(input => {
+      input.addEventListener('input', function() {
+        const valueDisplay = this.nextElementSibling;
+        if (valueDisplay && valueDisplay.classList.contains('chart-width-value')) {
+          valueDisplay.textContent = `${this.value}px`;
+        }
+      });
+    });
+
+    document.querySelectorAll('.chart-height-input').forEach(input => {
+      input.addEventListener('input', function() {
+        const valueDisplay = this.nextElementSibling;
+        if (valueDisplay && valueDisplay.classList.contains('chart-height-value')) {
+          valueDisplay.textContent = `${this.value}px`;
+        }
+      });
+    });
+
+    document.querySelectorAll('.toggle-advanced-settings').forEach(button => {
+      button.addEventListener('click', () => {
+        const advancedSettings = button.nextElementSibling;
+        const isVisible = advancedSettings.style.display === 'block';
+        advancedSettings.style.display = isVisible ? 'none' : 'block';
+        button.textContent = isVisible ? 'Show Advanced Settings' : 'Hide Advanced Settings';
+      });
+    });
+
+    document.querySelector('.chart-type-input').addEventListener('change', (e) => {
+      const singleSettings = document.querySelector('.single-line-settings');
+      const multiSettings = document.querySelector('.multi-line-settings');
+      if (e.target.value === 'single') {
+        singleSettings.style.display = 'block';
+        multiSettings.style.display = 'none';
+        updateSingleLineWarning();
+      } else {
+        singleSettings.style.display = 'none';
+        multiSettings.style.display = 'block';
+        updateLineValues();
+      }
+    });
+
+    document.querySelectorAll('.add-data-point').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const dataInputs = button.parentElement;
+        const newDataPoint = document.createElement('div');
+        newDataPoint.className = 'data-point';
+        if (button.closest('.multi-line-settings')) {
+          const lineInputs = document.querySelectorAll('.line-point');
+          newDataPoint.innerHTML = `
+            <input type="text" class="data-label" placeholder="Label" />
+            <div class="line-values">
+              ${Array.from(lineInputs).map((_, index) => `
+                <input type="number" class="data-value" min="0" placeholder="Value for Line ${index + 1}" />
+              `).join('')}
+            </div>
+            <button class="remove-data-point">Remove</button>
+          `;
+        } else {
+          newDataPoint.innerHTML = `
+            <input type="text" class="data-label" placeholder="Label" />
+            <input type="number" class="data-value" min="0" placeholder="Value" />
+            <button class="remove-data-point">Remove</button>
+          `;
+        }
+        dataInputs.insertBefore(newDataPoint, button);
+        if (button.closest('.single-line-settings')) {
+          updateSingleLineWarning();
+        }
+      });
+    });
+
+    document.querySelector('.add-line-point').addEventListener('click', () => {
+      const lineInputs = document.querySelector('.line-inputs');
+      const newLinePoint = document.createElement('div');
+      newLinePoint.className = 'line-point';
+      newLinePoint.innerHTML = `
+        <input type="text" class="line-label" placeholder="Line Label" />
+        <input type="color" class="line-color" value="#${Math.floor(Math.random()*16777215).toString(16)}" />
+        <button class="remove-line-point">Remove</button>
+      `;
+      lineInputs.insertBefore(newLinePoint, document.querySelector('.add-line-point'));
+      updateLineValues();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('remove-data-point')) {
+        if (e.target.closest('.data-inputs').querySelectorAll('.data-point').length > 1) {
+          e.target.parentElement.remove();
+          if (e.target.closest('.single-line-settings')) {
+            updateSingleLineWarning();
+          }
+        }
+      }
+      if (e.target.classList.contains('remove-line-point')) {
+        if (document.querySelectorAll('.line-point').length > 1) {
+          e.target.parentElement.remove();
+          updateLineValues();
+        }
+      }
+    });
+
+    document.querySelector('.chart-submit-button').addEventListener('click', () => {
+      try {
+        const chartType = document.querySelector('.chart-type-input').value;
+        const title = document.querySelector(`.${chartType}-line-settings .chart-title-input`).value || 'Line Chart';
+        const xAxis = document.querySelector(`.${chartType}-line-settings .x-axis-label-input`).value || 'Time Period';
+        const yAxis = document.querySelector(`.${chartType}-line-settings .y-axis-label-input`).value || 'Values';
+        const bgColor = document.querySelector(`.${chartType}-line-settings .background-color-input`).value || '#ffffff';
+        const textColor = document.querySelector(`.${chartType}-line-settings .text-color-input`).value || '#000000';
+        const lineWidth = parseInt(document.querySelector(`.${chartType}-line-settings .line-width-input`).value) || 3;
+        const showPoints = document.querySelector(`.${chartType}-line-settings .show-points-input`).checked;
+        const chartWidth = parseInt(document.querySelector(`.${chartType}-line-settings .chart-width-input`).value) || 800;
+        const chartHeight = parseInt(document.querySelector(`.${chartType}-line-settings .chart-height-input`).value) || 400;
+
+        currentBgColor = bgColor;
+        
+        updateChartDimensions(chartWidth, chartHeight);
+
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        let dataConfig;
+
+        if (chartType === 'single') {
+          const labels = Array.from(document.querySelectorAll('.single-line-settings .data-label')).map(input => input.value || 'Label');
+          const values = Array.from(document.querySelectorAll('.single-line-settings .data-value')).map(input => parseFloat(input.value) || 0);
+          const lineColor = document.querySelector('.single-line-settings .line-color-input').value || '#007bff';
+
+          dataConfig = {
+            labels: labels,
+            datasets: [{
+              label: '',
+              data: values,
+              borderColor: lineColor,
+              backgroundColor: lineColor + '33', // 20% opacity
+              borderWidth: lineWidth,
+              tension: 0.1,
+              fill: false,
+              pointRadius: showPoints ? 5 : 0,
+              pointHoverRadius: showPoints ? 7 : 0
+            }]
+          };
+        } else {
+          const labels = Array.from(document.querySelectorAll('.multi-line-settings .data-label')).map(input => input.value || 'Label');
+          const lineInputs = document.querySelectorAll('.line-point');
+          const datasets = Array.from(lineInputs).map((line, index) => {
+            const lineLabel = line.querySelector('.line-label').value || `Line ${index + 1}`;
+            const lineColor = line.querySelector('.line-color').value;
+            const values = Array.from(document.querySelectorAll('.multi-line-settings .data-point')).map(dataPoint => {
+              const valueInputs = dataPoint.querySelectorAll('.data-value');
+              return parseFloat(valueInputs[index].value) || 0;
+            });
+            return {
+              label: lineLabel,
+              data: values,
+              borderColor: lineColor,
+              backgroundColor: lineColor + '33', // 20% opacity
+              borderWidth: lineWidth,
+              tension: 0.1,
+              fill: false,
+              pointRadius: showPoints ? 5 : 0,
+              pointHoverRadius: showPoints ? 7 : 0
+            };
+          });
+
+          dataConfig = {
+            labels: labels,
+            datasets: datasets
+          };
+        }
+
+        chartInstance = new Chart(ctx, {
+          type: 'line',
+          data: dataConfig,
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+              padding: {
+                top: 15,
+                bottom: 20
+              }
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: title,
+                font: { size: 18, family: 'Poppins', weight: 500, style: 'normal' },
+                color: textColor,
+                padding: {
+                  top: 0,
+                  bottom: 10
+                }
+              },
+              legend: {
+                display: chartType === 'multi' ? true : false,
+                position: 'top',
+                labels: {
+                  font: { size: 12, family: 'Poppins', weight: 400, style: 'normal' },
+                  color: textColor,
+                  padding: 20
+                }
+              }
+            },
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: xAxis,
+                  font: { size: 14, family: 'Poppins', weight: 500, style: 'normal' },
+                  color: textColor
+                },
+                ticks: {
+                  color: textColor,
+                  font: { size: 12, family: 'Poppins', weight: 400, style: 'normal' }
+                },
+                grid: {
+                  display: true,
+                  color: '#e0e0e0'
+                }
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: yAxis,
+                  font: { size: 14, family: 'Poppins', weight: 500, style: 'normal' },
+                  color: textColor
+                },
+                ticks: {
+                  color: textColor,
+                  font: { size: 12, family: 'Poppins', weight: 400, style: 'normal' }
+                },
+                beginAtZero: true,
+                grid: {
+                  color: '#e0e0e0'
+                }
+              }
+            }
+          },
+          plugins: [backgroundColorPlugin]
+        });
+
+        document.querySelector('.global--chart--view').classList.add('fade');
+        setTimeout(() => {
+          document.querySelector('.global--chart--view').classList.remove('fade');
+        }, 400);
+      } catch (error) {
+        console.error('Error updating chart:', error);
+      }
+    });
+
+    document.querySelector('.global--chart--button--download').addEventListener('click', () => {
+      try {
+        const canvasElement = document.getElementById('lineChart');
+        const downloadNotification = document.getElementById('downloadNotification');
+        
+        // Allow notification only for this action
+        canShowDownloadNotification = true;
+        console.log('Download button clicked, enabling download notification');
+
+        // Ensure notification is hidden before showing
+        downloadNotification.classList.remove('show');
+        downloadNotification.style.display = 'block';
+
+        const dataUrl = canvasElement.toDataURL('image/png', 1.0);
+
+        const link = document.createElement('a');
+        link.download = 'line-chart.png';
+        link.href = dataUrl;
+        link.click();
+
+        if (canShowDownloadNotification) {
+          downloadNotification.textContent = 'Download started!';
+          downloadNotification.classList.add('show');
+          console.log('Showing download notification');
+          setTimeout(() => {
+            downloadNotification.classList.remove('show');
+            setTimeout(() => {
+              downloadNotification.style.display = 'none';
+              console.log('Download notification hidden after timeout');
+            }, 300); // Match transition duration
+          }, 2000);
+        }
+      } catch (error) {
+        console.error('Error downloading chart:', error);
+      }
+    });
+
+    document.querySelector('.global--chart--button--copy').addEventListener('click', () => {
+      try {
+        const canvasElement = document.getElementById('lineChart');
+        const copyNotification = document.getElementById('copyNotification');
+        
+        // Allow notification only for this action
+        canShowCopyNotification = true;
+        console.log('Copy button clicked, enabling copy notification');
+
+        // Ensure notification is hidden before showing
+        copyNotification.classList.remove('show');
+        copyNotification.style.display = 'block';
+
+        canvasElement.toBlob(blob => {
+          const item = new ClipboardItem({ 'image/png': blob });
+          navigator.clipboard.write([item]).then(() => {
+            if (canShowCopyNotification) {
+              copyNotification.textContent = 'Copied to clipboard!';
+              copyNotification.classList.add('show');
+              console.log('Showing copy notification');
+              setTimeout(() => {
+                copyNotification.classList.remove('show');
+                setTimeout(() => {
+                  copyNotification.style.display = 'none';
+                  console.log('Copy notification hidden after timeout');
+                }, 300); // Match transition duration
+              }, 2000);
+            }
+          }).catch(err => console.error('Error copying to clipboard:', err));
+        }, 'image/png', 1.0);
+      } catch (error) {
+        console.error('Error copying chart:', error);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        // Ensure both notifications are hidden on page load
+        const copyNotification = document.getElementById('copyNotification');
+        const downloadNotification = document.getElementById('downloadNotification');
+        copyNotification.classList.remove('show');
+        copyNotification.style.display = 'none';
+        downloadNotification.classList.remove('show');
+        downloadNotification.style.display = 'none';
+        canShowCopyNotification = false;
+        canShowDownloadNotification = false;
+        console.log('DOMContentLoaded: Both notifications hidden and disabled');
+
+        initializeChart();
+        document.querySelectorAll('.line-width-input').forEach(input => {
+          const valueDisplay = input.nextElementSibling;
+          if (valueDisplay && valueDisplay.classList.contains('line-width-value')) {
+            valueDisplay.textContent = `${input.value}px`;
+          }
+        });
+        document.querySelectorAll('.chart-width-input').forEach(input => {
+          const valueDisplay = input.nextElementSibling;
+          if (valueDisplay && valueDisplay.classList.contains('chart-width-value')) {
+            valueDisplay.textContent = `${input.value}px`;
+          }
+        });
+        document.querySelectorAll('.chart-height-input').forEach(input => {
+          const valueDisplay = input.nextElementSibling;
+          if (valueDisplay && valueDisplay.classList.contains('chart-height-value')) {
+            valueDisplay.textContent = `${input.value}px`;
+          }
+        });
+        updateSingleLineWarning();
+      } catch (error) {
+        console.error('Error initializing chart:', error);
+      }
+    });
+
+    // Debug unexpected clicks
+    document.addEventListener('click', (e) => {
+      if (e.target !== document.querySelector('.global--chart--button--copy') &&
+          e.target !== document.querySelector('.global--chart--button--download')) {
+        console.log('Click detected outside copy/download buttons:', e.target);
+      }
+    });
+  </script>
+</body>
+</html>

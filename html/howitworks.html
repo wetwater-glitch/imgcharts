@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works - imgcharts.com</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="/shared/img/gblimgtabicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="header"></div>
+    <script>
+        fetch('/html/header.html')
+        .then(res => res.text())
+        .then(data => (document.getElementById('header').innerHTML = data))
+        .catch(err => console.error('Error loading header:', err));
+    </script>
+
+    <main class="global--main">
+        <section class="hiw-hero">
+            <div class="hiw-hero-content">
+                <h1>How It Works</h1>
+                <p class="subtitle">Create great looking charts in just a few simple steps.</p>
+            </div>
+        </section>
+
+        <div class="hiw--content">
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h2>Choose Your Chart Type</h2>
+                        <div class="step-description">
+                            <p>On the home page, click on the button that says <strong>"Create Chart"</strong>.</p>
+                            <p>A dropdown menu will appear where you can select from various chart types to create.</p>
+                        </div>
+                        <div class="step-images">
+                            <img src="/shared/img/gblimghiwstep1img1.png" alt="Create Chart button">
+                            <img src="/shared/img/gblimghiwstep1img2.png" alt="Chart type selection">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h2>Customize Your Chart</h2>
+                        <div class="step-description">
+                            <p>Use our intuitive editor to input your data and customize the appearance.</p>
+                            <p>Adjust colors, labels, axes, and other visual elements to match your needs.</p>
+                        </div>
+                        <div class="step-images">
+                            <img src="/shared/img/gblimghiwstep1img3.png" alt="Chart editor">
+                            <img src="/shared/img/gblimghiwstep1img4.png" alt="Customization options">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h2>Download or Copy To Clipboard</h2>
+                        <div class="step-description">
+                            <p>Export your chart as PNG or copy the image to clipboard with one click.</p>
+                            <p>Use it in presentations, reports, or share directly with your team.</p>
+                        </div>
+                        <div class="step-images">
+                            <img src="/shared/img/gblimghiwstep1img5.png" alt="Export options">
+                            <img src="/shared/img/gblimghiwstep1img6.png" alt="Download button">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="index--info">
+                <div class="index--info--content">
+                    
+                    <div class="info-box">
+                        <!-- ICON (Replace with actual icon/image) -->
+                        <div class="info-icon">🔒</div>
+                        <!-- TEXT -->
+                        <div class="info-text">
+                            <h3>No Sign-Up Needed</h3>
+                            <p>Create and export charts instantly, no account required.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-icon">🌐</div>
+                        <div class="info-text">
+                            <h3>Works Everywhere</h3>
+                            <p>Use on any device — phone, tablet, or desktop.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-icon">🚫</div>
+                        <div class="info-text">
+                            <h3>No Watermarks</h3>
+                            <p>Your charts stay clean and unbranded — completely for free.</p>
+                        </div>
+                    </div>
+
+
+                </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+    <script>
+        fetch('/html/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error));
+    </script>
+</body>
+</html>

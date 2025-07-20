@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Area Chart Maker - imgcharts.com</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="/shared/img/gblimgtabicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body class="area-chart-maker">
+  <div id="header"></div>
+  <script>
+    fetch('/html/header.html')
+      .then(res => res.text())
+      .then(data => (document.getElementById('header').innerHTML = data))
+      .catch(err => console.error('Error loading header:', err));
+  </script>
+
+  <main class="main--maker--page">
+    <div class="global--chart--editor">
+      <h3>Chart Editor</h3>
+
+      <div class="chart-type-selector">
+        <label>
+          Chart Type:
+          <select class="chart-type-input">
+            <option value="single" selected>Single Area Chart</option>
+            <option value="multi">Multi-Area Chart</option>
+          </select>
+        </label>
+      </div>
+
+      <!-- Single Area Settings -->
+      <div class="single-area-settings">
+        <div class="settings-grid">
+          <div class="chart-title-container">
+            <label>
+              Chart Title:
+              <input type="text" class="chart-title-input" placeholder="Enter chart title" value="Area Chart" />
+            </label>
+          </div>
+          
+          <div class="x-axis-label-container">
+            <label>
+              X-Axis Label:
+              <input type="text" class="x-axis-label-input" placeholder="e.g., Time Period" value="Time Period" />
+            </label>
+          </div>
+          
+          <label>
+            Y-Axis Label:
+            <input type="text" class="y-axis-label-input" placeholder="e.g., Values" value="Values" />
+          </label>
+        </div>
+
+        <div class="color-settings">
+          <label>
+            Area Color:
+            <input type="color" class="area-color-input" value="#007bff" />
+          </label>
+          <label>
+            Area Opacity:
+            <input type="range" class="area-opacity-input" min="10" max="100" value="50" />
+            <span class="area-opacity-value">50%</span>
+          </label>
+          <label>
+            Show Points:
+            <input type="checkbox" class="show-points-input" checked />
+          </label>
+        </div>
+
+        <div class="data-inputs">
+          <h4>Data Points</h4>
+          <div class="single-area-warning">
+            Add at least two data points for a meaningful chart.
+          </div>
+          <button class="add-data-point">Add Data Point</button>
+        </div>
+
+        <button class="toggle-advanced-settings">
+          Show Advanced Settings
+        </button>
+        <div class="advanced-settings" style="display: none;">
+          <h4>Advanced Settings</h4>
+          <div class="advanced-settings-note">
+            Charts are responsive by default. Set custom dimensions for precise control.
+          </div>
+          <div class="dimension-settings">
+            <label>
+              Background Color:
+              <input type="color" class="background-color-input" value="#ffffff" />
+            </label>
+            <label>
+              Text Color:
+              <input type="color" class="text-color-input" value="#000000" />
+            </label>
+            <label>
+              Chart Width (px):
+              <input type="number" class="chart-width-input" min="400" max="2000" value="800" />
+            </label>
+            <label>
+              Chart Height (px):
+              <input type="number" class="chart-height-input" min="300" max="2000" value="400" />
+            </label>
+            <label>
+              Border Radius (px):
+              <input type="range" class="border-radius-input" min="0" max="20" value="0" />
+              <span class="border-radius-value">0px</span>
+            </label>
+            <label>
+              Curve Smoothing:
+              <input type="range" class="tension-input" min="0" max="1" step="0.1" value="0.1" />
+              <span class="tension-value">0.1</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-Area Settings -->
+      <div class="multi-area-settings" style="display: none;">
+        <div class="settings-grid">
+          <div class="chart-title-container">
+            <label>
+              Chart Title:
+              <input type="text" class="chart-title-input" placeholder="Enter chart title" value="Multi Area Chart" />
+            </label>
+          </div>
+          <div class="x-axis-label-container">
+            <label>
+              X-Axis Label:
+              <input type="text" class="x-axis-label-input" placeholder="e.g., Time Period" value="Time Period" />
+            </label>
+          </div>
+          <label>
+            Y-Axis Label:
+            <input type="text" class="y-axis-label-input" placeholder="e.g., Values" value="Values" />
+          </label>
+        </div>
+
+        <div class="area-inputs">
+          <h4>Areas</h4>
+          <div class="multi-area-warning">
+            Add at least two data points for a meaningful chart.
+          </div>
+          <div class="area-point">
+            <input type="text" class="area-label" placeholder="Area Label" value="Area 1" />
+            <input type="color" class="area-color" value="#007bff" />
+            <input type="range" class="area-opacity" min="10" max="100" value="50" />
+            <span class="area-opacity-value">50%</span>
+            <button class="remove-area-point">Remove</button>
+          </div>
+          <div class="area-point">
+            <input type="text" class="area-label" placeholder="Area Label" value="Area 2" />
+            <input type="color" class="area-color" value="#ff4d4d" />
+            <input type="range" class="area-opacity" min="10" max="100" value="50" />
+            <span class="area-opacity-value">50%</span>
+            <button class="remove-area-point">Remove</button>
+          </div>
+          <button class="add-area-point">Add Area</button>
+        </div>
+
+        <div class="data-inputs">
+          <h4>Data Points</h4>
+          <button class="add-data-point">Add Data Point</button>
+        </div>
+
+        <button class="toggle-advanced-settings">Show Advanced Settings</button>
+        <div class="advanced-settings" style="display: none;">
+          <h4>Advanced Settings</h4>
+          <div class="advanced-settings-note">
+            Charts are responsive by default. Set custom dimensions for precise control.
+          </div>
+          <div class="dimension-settings">
+            <label>
+              Background Color:
+              <input type="color" class="background-color-input" value="#ffffff" />
+            </label>
+            <label>
+              Text Color:
+              <input type="color" class="text-color-input" value="#000000" />
+            </label>
+            <label>
+              Chart Width (px):
+              <input type="number" class="chart-width-input" min="400" max="2000" value="800" />
+            </label>
+            <label>
+              Chart Height (px):
+              <input type="number" class="chart-height-input" min="300" max="2000" value="400" />
+            </label>
+            <label>
+              Border Radius (px):
+              <input type="range" class="border-radius-input" min="0" max="20" value="0" />
+              <span class="border-radius-value">0px</span>
+            </label>
+            <label>
+              Curve Smoothing:
+              <input type="range" class="tension-input" min="0" max="1" step="0.1" value="0.1" />
+              <span class="tension-value">0.1</span>
+            </label>
+            <label>
+              Show Points:
+              <input type="checkbox" class="show-points-input" checked />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button class="chart-submit-button">Update Chart</button>
+    </div>
+
+    <div class="chart--interaction--section">
+      <div class="global--chart--view">
+        <canvas id="areaChart"></canvas>
+      </div>
+      <div class="chart--action--buttons">
+        <button class="global--chart--button--download button-extract">
+          Download as PNG
+          <img src="/shared/img/gblimgdownload.png" height="15" alt="Download" />
+        </button>
+        <button class="global--chart--button--copy button-extract">
+          Copy to Clipboard
+          <img src="/shared/img/gblimgcopy.png" height="18" alt="Copy" />
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <script>
+    fetch('/html/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+  </script>
+
+  <div class="notification" id="copyNotification">Copied to clipboard!</div>
+  <div class="notification" id="downloadNotification">Download started!</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Chart instance and configuration variables
+      let chartInstance = null;
+      let currentBgColor = '#ffffff';
+      let currentChartType = 'single';
+
+      // DOM Elements
+      const chartCanvas = document.getElementById('areaChart');
+      const chartTypeSelector = document.querySelector('.chart-type-input');
+      const updateButton = document.querySelector('.chart-submit-button');
+      const downloadButton = document.querySelector('.global--chart--button--download');
+      const copyButton = document.querySelector('.global--chart--button--copy');
+      const copyNotification = document.getElementById('copyNotification');
+      const downloadNotification = document.getElementById('downloadNotification');
+
+      // Initialize the chart
+      function initializeChart() {
+        const initialWidth = 800;
+        const initialHeight = 400;
+        updateChartDimensions(initialWidth, initialHeight);
+        
+        const ctx = chartCanvas.getContext('2d');
+        let dataConfig;
+
+        if (currentChartType === 'single') {
+          dataConfig = {
+            labels: ['Jan', 'Feb', 'Mar'],
+            datasets: [{
+              label: 'Area 1',
+              data: [50, 60, 70],
+              backgroundColor: 'rgba(0, 123, 255, 0.5)',
+              borderColor: '#007bff',
+              borderWidth: 2,
+              tension: 0.1,
+              fill: true,
+              pointRadius: 5,
+              pointHoverRadius: 7
+            }]
+          };
+        } else {
+          // Start with empty datasets for multi chart
+          dataConfig = {
+            labels: [],
+            datasets: []
+          };
+        }
+
+        chartInstance = new Chart(ctx, {
+          type: 'line',
+          data: dataConfig,
+          options: getChartOptions('Area Chart', 'Time Period', 'Values', '#000000'),
+          plugins: [{
+            id: 'customCanvasBackground',
+            beforeDraw: (chart) => {
+              const ctx = chart.ctx;
+              ctx.save();
+              ctx.fillStyle = currentBgColor;
+              ctx.fillRect(0, 0, chart.width, chart.height);
+              ctx.restore();
+            }
+          }]
+        });
+      }
+
+      // Get chart options based on configuration
+      function getChartOptions(title, xAxis, yAxis, textColor) {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: title,
+              font: { size: 18, family: 'Poppins', weight: 500 },
+              color: textColor
+            },
+            legend: {
+              display: currentChartType === 'multi',
+              position: 'top',
+              labels: {
+                font: { size: 12, family: 'Poppins', weight: 500 },
+                color: textColor
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: xAxis,
+                font: { size: 14, family: 'Poppins', weight: 500 },
+                color: textColor
+              },
+              ticks: {
+                color: textColor,
+                font: { size: 12, family: 'Poppins', weight: 500 }
+              },
+              grid: {
+                display: true,
+                color: '#e0e0e0'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: yAxis,
+                font: { size: 14, family: 'Poppins', weight: 500 },
+                color: textColor
+              },
+              ticks: {
+                color: textColor,
+                font: { size: 12, family: 'Poppins', weight: 500 }
+              },
+              beginAtZero: true,
+              grid: {
+                color: '#e0e0e0'
+              }
+            }
+          }
+        };
+      }
+
+      // Update chart dimensions
+      function updateChartDimensions(width, height) {
+        const chartView = document.querySelector('.global--chart--view');
+        chartView.style.width = `${width}px`;
+        chartView.style.height = `${height}px`;
+        chartView.style.minHeight = `${height}px`;
+        
+        chartCanvas.style.width = `${width}px`;
+        chartCanvas.style.height = `${height}px`;
+        chartCanvas.width = width;
+        chartCanvas.height = height;
+        
+        if (chartInstance) {
+          chartInstance.resize();
+        }
+      }
+
+      // Update area values for multi-area charts
+      function updateAreaValues() {
+        const areaInputs = document.querySelectorAll('.area-point');
+        const dataPoints = document.querySelectorAll(`.${currentChartType}-area-settings .data-point`);
+        
+        dataPoints.forEach(dataPoint => {
+          const areaValuesContainer = dataPoint.querySelector('.area-values');
+          const currentValues = Array.from(dataPoint.querySelectorAll('.data-value')).map(input => input.value);
+          areaValuesContainer.innerHTML = '';
+          
+          areaInputs.forEach((area, index) => {
+            const valueInput = document.createElement('input');
+            valueInput.type = 'number';
+            valueInput.className = 'data-value';
+            valueInput.min = '0';
+            valueInput.step = '0.01';
+            valueInput.placeholder = `Value for Area ${index + 1}`;
+            valueInput.value = currentValues[index] || '';
+            areaValuesContainer.appendChild(valueInput);
+          });
+        });
+      }
+
+      // Show notification
+      function showNotification(element, message) {
+        element.textContent = message;
+        element.classList.add('show');
+        setTimeout(() => {
+          element.classList.remove('show');
+        }, 2000);
+      }
+
+      // Event Listeners
+      chartTypeSelector.addEventListener('change', (e) => {
+        currentChartType = e.target.value;
+        document.querySelectorAll('.single-area-settings, .multi-area-settings').forEach(el => {
+          el.style.display = 'none';
+        });
+        document.querySelector(`.${currentChartType}-area-settings`).style.display = 'block';
+        updateAreaValues();
+        updateButton.click();
+      });
+
+      // Add data point
+      document.querySelectorAll('.add-data-point').forEach(button => {
+        button.addEventListener('click', () => {
+          const dataInputs = button.closest('.data-inputs');
+          const newDataPoint = document.createElement('div');
+          newDataPoint.className = 'data-point';
+          
+          if (currentChartType === 'multi') {
+            const areaInputs = document.querySelectorAll('.area-point');
+            newDataPoint.innerHTML = `
+              <input type="text" class="data-label" placeholder="Label" />
+              <div class="area-values">
+                ${Array.from(areaInputs).map((_, index) => `
+                  <input type="number" class="data-value" min="0" placeholder="Value for Area ${index + 1}" step="0.01" />
+                `).join('')}
+              </div>
+              <button class="remove-data-point">Remove</button>
+            `;
+          } else {
+            newDataPoint.innerHTML = `
+              <input type="text" class="data-label" placeholder="Label" />
+              <input type="number" class="data-value" min="0" placeholder="Value" step="0.01" />
+              <button class="remove-data-point">Remove</button>
+            `;
+          }
+          dataInputs.insertBefore(newDataPoint, button);
+        });
+      });
+
+      // Add area point
+      document.querySelectorAll('.add-area-point').forEach(button => {
+        button.addEventListener('click', () => {
+          const areaInputs = button.closest('.area-inputs');
+          const newAreaPoint = document.createElement('div');
+          newAreaPoint.className = 'area-point';
+          
+          const randomColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+          newAreaPoint.innerHTML = `
+            <input type="text" class="area-label" placeholder="Area Label" />
+            <input type="color" class="area-color" value="${randomColor}" />
+            <input type="range" class="area-opacity" min="10" max="100" value="50" />
+            <span class="area-opacity-value">50%</span>
+            <button class="remove-area-point">Remove</button>
+          `;
+          
+          areaInputs.insertBefore(newAreaPoint, button);
+          updateAreaValues();
+        });
+      });
+
+      // Remove elements
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-data-point')) {
+          if (e.target.closest('.data-inputs').querySelectorAll('.data-point').length > 1) {
+            e.target.parentElement.remove();
+          }
+        }
+        if (e.target.classList.contains('remove-area-point')) {
+          if (document.querySelectorAll('.area-point').length > 1) {
+            e.target.parentElement.remove();
+            updateAreaValues();
+          }
+        }
+      });
+
+      // Update range value displays
+      document.addEventListener('input', (e) => {
+        if (e.target.classList.contains('area-opacity-input') || 
+            e.target.classList.contains('area-opacity') || 
+            e.target.classList.contains('border-radius-input') ||
+            e.target.classList.contains('tension-input')) {
+          const valueDisplay = e.target.nextElementSibling;
+          if (valueDisplay && (valueDisplay.classList.contains('area-opacity-value') || 
+              valueDisplay.classList.contains('border-radius-value') ||
+              valueDisplay.classList.contains('tension-value'))) {
+            const suffix = e.target.classList.contains('border-radius-input') ? 'px' : 
+                         (e.target.classList.contains('tension-input') ? '' : '%');
+            valueDisplay.textContent = `${e.target.value}${suffix}`;
+          }
+        }
+      });
+
+      // Toggle advanced settings
+      document.querySelectorAll('.toggle-advanced-settings').forEach(button => {
+        button.addEventListener('click', () => {
+          const advancedSettings = button.nextElementSibling;
+          const isVisible = advancedSettings.style.display === 'block';
+          advancedSettings.style.display = isVisible ? 'none' : 'block';
+          button.textContent = isVisible ? 'Show Advanced Settings' : 'Hide Advanced Settings';
+        });
+      });
+
+      // Update chart
+      updateButton.addEventListener('click', () => {
+        try {
+          const title = document.querySelector(`.${currentChartType}-area-settings .chart-title-input`).value || 'Area Chart';
+          const xAxis = document.querySelector(`.${currentChartType}-area-settings .x-axis-label-input`).value || 'Time Period';
+          const yAxis = document.querySelector(`.${currentChartType}-area-settings .y-axis-label-input`).value || 'Values';
+          const bgColor = document.querySelector(`.${currentChartType}-area-settings .background-color-input`).value || '#ffffff';
+          const textColor = document.querySelector(`.${currentChartType}-area-settings .text-color-input`).value || '#000000';
+          const showPoints = document.querySelector(`.${currentChartType}-area-settings .show-points-input`).checked;
+          const chartWidth = parseInt(document.querySelector(`.${currentChartType}-area-settings .chart-width-input`).value) || 800;
+          const chartHeight = parseInt(document.querySelector(`.${currentChartType}-area-settings .chart-height-input`).value) || 400;
+          const borderRadius = parseInt(document.querySelector(`.${currentChartType}-area-settings .border-radius-input`).value) || 0;
+          const tension = parseFloat(document.querySelector(`.${currentChartType}-area-settings .tension-input`).value) || 0.1;
+
+          currentBgColor = bgColor;
+          updateChartDimensions(chartWidth, chartHeight);
+
+          if (chartInstance) {
+            chartInstance.destroy();
+          }
+
+          const ctx = chartCanvas.getContext('2d');
+          let dataConfig;
+
+          const labels = Array.from(document.querySelectorAll(`.${currentChartType}-area-settings .data-label`)).map(input => input.value || 'Label');
+          if (currentChartType === 'single') {
+            const values = Array.from(document.querySelectorAll('.single-area-settings .data-value')).map(input => parseFloat(input.value) || 0);
+            const areaColor = document.querySelector('.single-area-settings .area-color-input').value || '#007bff';
+            const areaOpacity = parseInt(document.querySelector('.single-area-settings .area-opacity-input').value) || 50;
+
+            dataConfig = {
+              labels: labels.length > 0 ? labels : ['Jan', 'Feb', 'Mar'],
+              datasets: [{
+                label: '',
+                data: values.length > 0 ? values : [50, 60, 70],
+                backgroundColor: hexToRgba(areaColor, areaOpacity / 100),
+                borderColor: areaColor,
+                borderWidth: 2,
+                tension: tension,
+                fill: true,
+                pointRadius: showPoints ? 5 : 0,
+                pointHoverRadius: showPoints ? 7 : 0,
+                borderJoinStyle: 'round'
+              }]
+            };
+          } else {
+            const areaInputs = document.querySelectorAll('.area-point');
+            const datasets = Array.from(areaInputs).map((area, index) => {
+              const areaLabel = area.querySelector('.area-label').value || `Area ${index + 1}`;
+              const areaColor = area.querySelector('.area-color').value;
+              const areaOpacity = parseInt(area.querySelector('.area-opacity').value) || 50;
+              const values = Array.from(document.querySelectorAll(`.${currentChartType}-area-settings .data-point`)).map(dataPoint => {
+                const valueInputs = dataPoint.querySelectorAll('.data-value');
+                return parseFloat(valueInputs[index].value) || 0;
+              });
+              
+              return {
+                label: areaLabel,
+                data: values,
+                backgroundColor: hexToRgba(areaColor, areaOpacity / 100),
+                borderColor: areaColor,
+                borderWidth: 2,
+                tension: tension,
+                fill: true,
+                pointRadius: showPoints ? 5 : 0,
+                pointHoverRadius: showPoints ? 7 : 0,
+                borderJoinStyle: 'round'
+              };
+            });
+
+            dataConfig = {
+              labels: labels,
+              datasets: datasets
+            };
+          }
+
+          chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: dataConfig,
+            options: getChartOptions(title, xAxis, yAxis, textColor),
+            plugins: [{
+              id: 'customCanvasBackground',
+              beforeDraw: (chart) => {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.fillStyle = currentBgColor;
+                ctx.fillRect(0, 0, chart.width, chart.height);
+                ctx.restore();
+              }
+            }]
+          });
+
+          // Add fade animation
+          document.querySelector('.global--chart--view').classList.add('fade');
+          setTimeout(() => {
+            document.querySelector('.global--chart--view').classList.remove('fade');
+          }, 400);
+        } catch (error) {
+          console.error('Error updating chart:', error);
+        }
+      });
+
+      // Download chart
+      downloadButton.addEventListener('click', () => {
+        try {
+          const canvasElement = document.getElementById('areaChart');
+          const dataUrl = canvasElement.toDataURL('image/png', 1.0);
+
+          const link = document.createElement('a');
+          link.download = 'area-chart.png';
+          link.href = dataUrl;
+          link.click();
+          
+          showNotification(downloadNotification, 'Download started!');
+        } catch (error) {
+          console.error('Error downloading chart:', error);
+        }
+      });
+
+      // Copy to clipboard
+      copyButton.addEventListener('click', () => {
+        try {
+          const canvasElement = document.getElementById('areaChart');
+          canvasElement.toBlob(blob => {
+            const item = new ClipboardItem({ 'image/png': blob });
+            navigator.clipboard.write([item]).then(() => {
+              showNotification(copyNotification, 'Copied to clipboard!');
+            }).catch(err => console.error('Error copying to clipboard:', err));
+          }, 'image/png', 1.0);
+        } catch (error) {
+          console.error('Error copying chart:', error);
+        }
+      });
+
+      // Helper function to convert hex to rgba
+      function hexToRgba(hex, opacity) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+      }
+
+      // Initialize the chart
+      initializeChart();
+    });
+  </script>
+</body>
+</html>

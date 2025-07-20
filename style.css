@@ -1,0 +1,1242 @@
+:root {
+    --blue--color: #18bfff;
+    --blue--hover--color: #18abe4;
+    --red--color: #f82b60;
+    --red--hover--color: #dd1d50;
+    --yellow--color: #fcb400;
+    --text--color: #0a2540;
+    --dotted--color: #bec0da;
+    --box--color: #e7e7f1;
+    --background--color: #f1eeee;
+    --button-group-bg-color: #f82b60;
+    --border--button--color: #f67c8c;
+    --purple--color: #72a4f5;
+    --purple--hover--color: #86adef;
+    --transition-duration: 0.1s;
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+    color: var(--text--color);
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background--color);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    pointer-events: none;
+}
+
+/* HEADER */
+.main--header {
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    width: 100%;
+    height: 54px;
+    display: flex;
+    background-color: white;
+    box-shadow: 0 3px 24px rgba(0, 0, 0, 0.08);
+}
+
+.main--header--content {
+    width: 1224px;
+    height: 100%;
+    display: flex;
+    padding-right: 20px;
+    padding-left: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main--header--logo {
+    margin-top: 5px;
+}
+
+.main--header--tasks {
+    display: flex;
+    gap: 30px;
+}
+
+.header-task {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+    position: relative;
+}
+
+.header-task a {
+    text-decoration: none;
+}
+
+.chevron {
+    width: 8px;
+    height: 8px;
+    margin-top: 2px;
+    border-right: 2px solid var(--text--color);
+    border-bottom: 2px solid var(--text--color);
+    transform: translateY(-50%) rotate(45deg);
+    transition: transform var(--transition-duration) ease-in-out;
+}
+
+.chevron-black {
+    border-right: 2px solid var(--text--color);
+    border-bottom: 2px solid var(--text--color);
+}
+
+.chevron-create {
+    margin-top: 5px;
+}
+
+.chevron-language {
+    margin-top: 7px;
+}
+
+.chevron-white {
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+.task-create:hover .chevron {
+    transform: translateY(-50%) rotate(-135deg);
+}
+
+.main--header--language:hover .chevron {
+    transform: translateY(-50%) rotate(-135deg);
+}
+
+.main--header--language {
+    background-color: var(--red--color);
+    border-radius: 5px;
+    padding: 6px;
+    width: 50px;
+    gap: 10px;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+}
+
+.main--header--language:hover {
+    background-color: var(--red--hover--color);
+}
+
+.main--header--language img {
+    width: 17px;
+    height: 17px;
+}
+
+.create-dropdown, .language-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: clip-path var(--transition-duration) ease-in-out;
+}
+
+.task-create:hover .create-dropdown {
+    display: block;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    width: 500px;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.main--header--language:hover .language-dropdown {
+    display: block;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    width: 100px;
+    left: 0px;
+}
+
+.create-dropdown .dropdown-column {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.create-dropdown .dropdown-column:first-child::after {
+    content: '';
+    position: absolute;
+    right: 50%;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background-color: #ccc;
+}
+
+.create-dropdown .dropdown-item {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text--color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.create-dropdown .dropdown-item img {
+    width: 20px;
+    height: 20px;
+}
+
+.create-dropdown .dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+.language {
+    padding: 10px;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.language:hover {
+    background-color: #f0f0f0;
+}
+
+/* HOME PAGE */
+.index--content {
+    margin-top: 100px;
+    width: 100%;
+    max-width: 1224px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main--index--page {
+    width: 100%;
+}
+
+.index--link--direct {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--box--color);
+    border: 5px dotted var(--dotted--color);
+    align-items: center;
+}
+
+.index--box {
+    width: 700px;
+    border-radius: 10px;
+}
+
+.index--link--direct--button {
+    margin-top: 30px;
+}
+
+.button-group {
+    cursor: pointer;
+    width: 240px;
+    background-color: var(--button-group-bg-color);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+
+.button-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    flex-grow: 1;
+}
+
+.bar-icon {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2px;
+    width: 18px;
+    height: 18px;
+}
+
+.bar-icon::before,
+.bar-icon::after,
+.bar-icon div {
+    content: '';
+    display: block;
+    width: 3px;
+    background-color: white;
+    border-radius: 1px;
+}
+
+.bar-icon::before {
+    height: 6px;
+}
+
+.bar-icon div {
+    height: 10px;
+}
+
+.bar-icon::after {
+    height: 14px;
+}
+
+.index--link--direct--button .button-group .button-text,
+.index--link--direct--button .button-group button {
+    background-color: transparent;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.index--link--direct--button .button-group button {
+    padding: 0 15px;
+    cursor: pointer;
+    border-left: solid 1px white;
+}
+
+.button-subtext {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    line-height: 0px;
+    font-weight: 400;
+}
+
+.chevron-down {
+    width: 16px;
+    height: 16px;
+    position: relative;
+}
+
+.chevron-down::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: transform var(--transition-duration) ease-in-out;
+}
+
+.chevron-down.chevron-up::before {
+    transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.index--link--direct--button .button-group:hover {
+    background-color: var(--red--hover--color);
+}
+
+.index--link--direct--button .button-group:hover .bar-icon::before,
+.index--link--direct--button .button-group:hover .bar-icon::after,
+.index--link--direct--button .button-group:hover .bar-icon div {
+    background-color: white;
+}
+
+.index--title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.index--title h1 {
+    font-size: 45px;
+    margin: 0;
+}
+
+.index--title p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.type-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    max-width: 700px;
+}
+
+.chart-type {
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text--color);
+    text-align: center;
+    background-color: #fff;
+    padding: 16px 12px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chart-type:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.chart-type img {
+    width: 35px;
+    height: 35px;
+}
+
+.chart-type span {
+    font-weight: 600;
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+    position: relative;
+}
+
+.button-dropdown {
+    position: relative;
+    width: 240px;
+    margin-top: 2px;
+}
+
+.dropdown-menu {
+    display: block;
+    position: absolute;
+    height: auto;
+    flex-direction: column;
+    background-color: var(--button-group-bg-color);
+    width: 240px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: clip-path var(--transition-duration) ease-in-out;
+}
+
+.dropdown-menu.show-dropdown {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.dropdown-menu a {
+    padding: 12px 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    width: 100%;
+    gap: 25px;
+    font-size: 15px;
+    line-height: 29px;
+    border-top: 1px solid var(--border--button--color);
+    align-items: center;
+    padding-left: 25px;
+}
+
+.dropdown-menu a img {
+    width: 17px;
+    height: 17px;
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--red--hover--color);
+    transition: background-color var(--transition-duration) ease-in-out;
+}
+
+.index--info {
+    margin-top: 90px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.index--info--content {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    gap: 50px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+
+.info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.info-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.info-text h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.info-text p {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+}
+
+.color-black {
+    color: var(--text--color);
+    background-color: var(--text--color);
+}
+
+/* CHART MAKER */
+.main--maker--page {
+    margin: 100px auto 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1300px;
+    margin-bottom: 30px;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .main--maker--page {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.global--chart--editor {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    background-color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.global--chart--editor h3 {
+    font-size: 22px;
+    margin: 0 0 15px;
+    color: #333;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.global--chart--editor h4 {
+    font-size: 16px;
+    margin: 15px 0 10px;
+    color: #444;
+}
+
+.global--chart--editor h5 {
+    font-size: 15px;
+    margin: 0 0 8px;
+}
+
+.global--chart--editor label {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.global--chart--editor input[type="text"],
+.global--chart--editor input[type="number"],
+.global--chart--editor select {
+    padding: 9px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.3s;
+    background-color: #f8f9fa;
+    width: 100%;
+    max-width: 100%;
+}
+
+.global--chart--editor input[type="range"] {
+    padding: 8px 0;
+    width: 100%;
+    height: 8px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.global--chart--editor input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--blue--color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.global--chart--editor input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--blue--hover--color);
+}
+
+.global--chart--editor input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--blue--color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.global--chart--editor input[type="range"]::-moz-range-thumb:hover {
+    background: var(--blue--hover--color);
+}
+
+.global--chart--editor input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--blue--color);
+    cursor: pointer;
+}
+
+.global--chart--editor input[type="color"] {
+    width: 45px;
+    height: 45px;
+    padding: 3px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.global--chart--editor input:focus,
+.global--chart--editor select:focus {
+    border-color: var(--blue--color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(24, 191, 255, 0.1);
+}
+
+.chart-type-selector {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.chart-type-selector label {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.chart-type-selector select {
+    width: 100%;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #f8f9fa;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 30px;
+}
+
+.chart-type-selector select:hover {
+    background-color: #f1f3f5;
+    border-color: #adb5bd;
+}
+
+.chart-type-selector option {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.chart-type-selector option:hover {
+    background-color: #e9ecef;
+}
+
+.chart-type-selector option:checked {
+    background-color: var(--blue--color);
+    color: white;
+}
+
+.chart-type-selector select:focus {
+    background-color: #fff;
+    border-color: var(--blue--color);
+    box-shadow: 0 0 0 0.2rem rgba(24, 191, 255, 0.25);
+}
+
+.single-bar-settings,
+.grouped-bar-settings,
+.single-line-settings,
+.multi-line-settings,
+.single-area-settings,
+.multi-area-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.color-settings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.dimension-settings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.group-inputs,
+.line-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.group-point,
+.line-point,
+.area-point {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.group-point input[type="text"],
+.line-point input[type="text"],
+.area-point input[type="text"] {
+    flex: 1;
+    min-width: 120px;
+}
+
+.group-point input[type="color"],
+.line-point input[type="color"],
+.area-point input[type="color"] {
+    width: 40px;
+    height: 40px;
+}
+
+.group-values,
+.line-values,
+.area-values {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.data-inputs {
+    margin: 20px 0 15px;
+}
+
+.data-point {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.data-point-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+
+.data-point input {
+    flex: 1;
+    min-width: 0;
+}
+
+.add-data-point,
+.add-group-point,
+.add-line-point,
+.add-area-point {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+.add-data-point:hover,
+.add-group-point:hover,
+.add-line-point:hover,
+.add-area-point:hover {
+    background-color: #218838;
+}
+
+.remove-data-point,
+.remove-group-point,
+.remove-line-point,
+.remove-area-point {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+    margin-left: auto;
+}
+
+.single-bar-warning,
+.single-line-warning,
+.pie-warning,
+.single-area-warning,
+.multi-area-warning {
+    padding: 12px 24px;
+    background-color: var(--yellow--color);
+    color: var(--text--color);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.bar-width-label,
+.line-width-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bar-width-value,
+.line-width-value {
+    font-size: 13px;
+    color: #555;
+}
+
+.toggle-advanced-settings {
+    background-color: var(--purple--color);
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+    align-self: flex-start;
+    justify-content: center;
+}
+
+.toggle-advanced-settings:hover {
+    background-color: var(--purple--hover--color);
+}
+
+.advanced-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.advanced-settings-note {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.chart--interaction--section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    align-items: center;
+}
+
+.global--chart--view {
+    width: 100%;
+    max-width: 800px;
+    min-height: 400px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+#barChart,
+#areaChart {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+}
+
+.global--chart--view.fade {
+    animation: fadeUpdate 0.4s ease-in-out;
+}
+
+.chart--action--buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.button-extract {
+    font-weight: 600;
+    font-size: 15px;
+    height: 42px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 200px;
+    padding: 0 18px;
+    gap: 10px;
+    cursor: pointer;
+    transition: all var(--transition-duration);
+}
+
+.global--chart--button--download {
+    background-color: var(--red--color);
+    border: none;
+    color: white;
+}
+
+.global--chart--button--download:hover {
+    background-color: var(--red--hover--color);
+}
+
+.global--chart--button--copy {
+    background-color: white;
+    border: 1px solid var(--text--color);
+    color: var(--text--color);
+    white-space: nowrap;
+}
+
+.global--chart--button--copy:hover {
+    border: 2px solid var(--text--color);
+    padding: 0 17px; /* Adjust padding to maintain consistent size */
+}
+
+.chart-submit-button {
+    background-color: var(--red--color);
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.chart-submit-button:hover {
+    background-color: var(--red--hover--color);
+}
+
+@keyframes fadeUpdate {
+    from {
+        opacity: 0.2;
+        transform: scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s, transform 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* FOOTER */
+footer {
+    width: 100%;
+    background-color: var(--text--color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    margin-top: 100px;
+}
+
+.footer--content {
+    width: 100%;
+    max-width: 1224px;
+    align-items: center;
+    margin: 10px 0;
+    color: #fff;
+    display: flex;
+    gap: 50px;
+}
+
+.footer--logo--main--text {
+    color: white;
+    font-size: 15px;
+}
+
+/* Area Chart Specific Styles */
+.area-chart-maker .main--maker--page {
+    margin: 100px auto 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1300px;
+    margin-bottom: 30px;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .area-chart-maker .main--maker--page {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.area-chart-maker .global--chart--editor {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    background-color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.area-chart-maker .global--chart--editor h3 {
+    font-size: 22px;
+    margin: 0 0 15px;
+    color: #333;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.area-chart-maker .chart-type-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.area-chart-maker .single-area-settings,
+.area-chart-maker .multi-area-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.area-chart-maker .settings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.area-chart-maker .chart-title-container,
+.area-chart-maker .x-axis-label-container {
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
+}
+
+.area-chart-maker .chart-title-input,
+.area-chart-maker .x-axis-label-input,
+.area-chart-maker .y-axis-label-input {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.area-chart-maker .color-settings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.area-chart-maker .data-inputs,
+.area-chart-maker .area-inputs {
+    margin: 20px 0 15px;
+}
+
+.area-chart-maker .data-point,
+.area-chart-maker .area-point {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+
+.area-chart-maker .data-point:hover,
+.area-chart-maker .area-point:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.area-chart-maker .add-data-point,
+.area-chart-maker .add-area-point {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+.area-chart-maker .remove-data-point,
+.area-chart-maker .remove-area-point {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+    margin-left: auto;
+}
+
+.area-chart-maker .global--chart--view {
+    width: 100%;
+    max-width: 800px;
+    min-height: 400px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 25px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}

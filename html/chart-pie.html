@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pie Chart Maker - imgcharts.com</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="icon" type="image/x-icon" href="/shared/img/gblimgtabicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="header"></div>
+  <script>
+    fetch('/html/header.html')
+      .then(res => res.text())
+      .then(data => (document.getElementById('header').innerHTML = data))
+      .catch(error => console.error('Error loading header:', error));
+  </script>
+
+  <main class="main--maker--page">
+    <div class="global--chart--editor">
+      <h3>Chart Editor</h3>
+
+      <div class="pie-settings">
+        <label>
+          Chart Title
+          <input type="text" class="title-input" placeholder="Enter chart title" />
+        </label>
+
+        <div class="data-inputs">
+          <h4>Data Points</h4>
+          <div class="pie-warning" style="display: none;">
+            Add more data points for a more meaningful chart.
+          </div>
+          <div class="data-point">
+            <div class="data-point-row">
+              <input type="text" class="data-label" placeholder="Label" />
+              <input type="number" class="data-value" min="0" placeholder="Value" />
+              <input type="color" class="data-color" value="#007bff" />
+              <button class="remove-data-point">Remove</button>
+            </div>
+          </div>
+          <button class="add-data-point">Add Data Point</button>
+        </div>
+
+        <button class="toggle-advanced-settings">Show Advanced Settings</button>
+        <div class="advanced-settings" style="display: none;">
+          <h4>Advanced Settings</h4>
+          <div class="advanced-settings-note">
+            Charts are responsive by default. Set custom dimensions for precise control (e.g., for export).
+          </div>
+          <label>
+            Show Title:
+            <input type="checkbox" class="title-toggle" checked />
+          </label>
+          <label>
+            Background Color:
+            <input type="color" class="background-color-input" value="#ffffff" />
+          </label>
+          <label>
+            Text Color:
+            <input type="color" class="text-color-input" value="#000000" />
+          </label>
+          <label>
+            Title Position:
+            <select class="title-position-input">
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+              <option value="top-left">Top Left</option>
+              <option value="top-right">Top Right</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="bottom-right">Bottom Right</option>
+            </select>
+          </label>
+          <label>
+            Legend Position:
+            <select class="legend-position-input">
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+              <option value="top-left">Top Left</option>
+              <option value="top-right" selected>Top Right</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="bottom-right">Bottom Right</option>
+            </select>
+          </label>
+          <label>
+            Legend Distance (px):
+            <input type="range" class="legend-distance-input" min="10" max="100" value="40" />
+          </label>
+          <label>
+            Show Borders Between Slices:
+            <input type="checkbox" class="border-toggle" checked />
+          </label>
+          <label>
+            Chart Width (px):
+            <input type="number" class="chart-width-input" min="400" max="2000" value="800" />
+          </label>
+          <label>
+            Chart Height (px):
+            <input type="number" class="chart-height-input" min="300" max="2000" value="600" />
+          </label>
+          <div class="pie-numbers-toggle-container">
+            <label>
+              <input type="checkbox" id="show-pie-numbers" name="show-pie-numbers">
+              Show Numbers on Slices
+            </label>
+          </div>
+          <div class="pie-numbers-color-container">
+            <label>
+              Slice Numbers Color
+              <input type="color" id="pie-numbers-color" name="pie-numbers-color" value="#000000">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button class="chart-submit-button">Update Chart</button>
+    </div>
+
+    <div class="chart--interaction--section">
+      <div class="global--chart--view">
+        <div class="pie-chart-container">
+          <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+      <div class="chart--action--buttons">
+        <div class="global--chart--button--download button-extract">
+          Download as PNG
+          <img src="/shared/img/gblimgdownload.png" height="15" />
+        </div>
+        <div class="global--chart--button--copy button-extract">
+          Copy to Clipboard
+          <img src="/shared/img/gblimgcopy.png" height="18" />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <script>
+    fetch('/html/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+  </script>
+
+  <div class="notification" id="copyNotification">Copied to clipboard!</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    let chartInstance = null;
+    let currentBgColor = '#ffffff';
+
+    // Register the DataLabels plugin
+    Chart.register(ChartDataLabels);
+
+    const backgroundColorPlugin = {
+      id: 'customCanvasBackground',
+      beforeDraw: (chart) => {
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.fillStyle = currentBgColor;
+        ctx.fillRect(0, 0, chart.width, chart.height);
+        ctx.restore();
+      }
+    };
+
+    function updateChartDimensions(width, height) {
+      const chartView = document.querySelector('.global--chart--view');
+      const chartContainer = document.querySelector('.pie-chart-container');
+      const canvas = document.getElementById('pieChart');
+      
+      // Set dimensions for the container and canvas
+      chartView.style.width = `${width}px`;
+      chartView.style.height = `${height}px`;
+      
+      // Maintain square aspect ratio for the pie chart container
+      const pieSize = Math.min(width, height) * 0.8; // 80% of the smaller dimension
+      
+      chartContainer.style.width = `${pieSize}px`;
+      chartContainer.style.height = `${pieSize}px`;
+      
+      // Set canvas dimensions (actual pixel dimensions)
+      canvas.width = pieSize;
+      canvas.height = pieSize;
+      
+      // Set CSS dimensions (display dimensions)
+      canvas.style.width = `${pieSize}px`;
+      canvas.style.height = `${pieSize}px`;
+      
+      if (chartInstance) {
+        chartInstance.resize();
+      }
+    }
+
+    function getTitlePositionConfig(position) {
+      switch (position) {
+        case 'top':
+          return { position: 'top', align: 'center' };
+        case 'bottom':
+          return { position: 'bottom', align: 'center' };
+        case 'top-left':
+          return { position: 'top', align: 'start' };
+        case 'top-right':
+          return { position: 'top', align: 'end' };
+        case 'bottom-left':
+          return { position: 'bottom', align: 'start' };
+        case 'bottom-right':
+          return { position: 'bottom', align: 'end' };
+        default:
+          return { position: 'top', align: 'center' };
+      }
+    }
+
+    function getLegendPositionConfig(position) {
+      switch (position) {
+        case 'top':
+          return { position: 'top', align: 'center' };
+        case 'bottom':
+          return { position: 'bottom', align: 'center' };
+        case 'top-left':
+          return { position: 'left', align: 'start' };
+        case 'top-right':
+          return { position: 'right', align: 'start' };
+        case 'bottom-left':
+          return { position: 'left', align: 'end' };
+        case 'bottom-right':
+          return { position: 'right', align: 'end' };
+        default:
+          return { position: 'right', align: 'start' };
+      }
+    }
+
+    function initializeChart() {
+      const ctx = document.getElementById('pieChart').getContext('2d');
+      if (!ctx) {
+        console.error('Canvas context not found for pieChart');
+        return;
+      }
+      
+      const initialWidth = parseInt(document.querySelector('.pie-settings .chart-width-input').value) || 800;
+      const initialHeight = parseInt(document.querySelector('.pie-settings .chart-height-input').value) || 600;
+      
+      updateChartDimensions(initialWidth, initialHeight);
+      
+      chartInstance = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Category 1', 'Category 2', 'Category 3'],
+          datasets: [{
+            data: [30, 50, 20],
+            backgroundColor: ['#007bff', '#ff4d4d', '#28a745'],
+            borderColor: '#ffffff',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Pie Chart',
+              font: { size: 18, family: 'Poppins', weight: 500, style: 'normal' },
+              color: '#000000',
+              padding: 10,
+              ...getTitlePositionConfig('top')
+            },
+            legend: {
+              display: true,
+              ...getLegendPositionConfig('top-right'),
+              labels: {
+                font: { size: 12, family: 'Poppins', weight: 500, style: 'normal' },
+                color: '#000000',
+                padding: 40
+              }
+            },
+            datalabels: {
+              display: false,
+              color: '#000000',
+              anchor: 'center',
+              align: 'center',
+              font: {
+                size: 12,
+                family: 'Poppins',
+                weight: 500
+              },
+              formatter: (value) => value
+            }
+          }
+        },
+        plugins: [backgroundColorPlugin, ChartDataLabels]
+      });
+    }
+
+    function updatePieWarning() {
+      const dataPoints = document.querySelectorAll('.pie-settings .data-point');
+      const warning = document.querySelector('.pie-warning');
+      if (dataPoints.length < 2) {
+        warning.style.display = 'block';
+      } else {
+        warning.style.display = 'none';
+      }
+    }
+
+    document.querySelector('.toggle-advanced-settings').addEventListener('click', () => {
+      const advancedSettings = document.querySelector('.advanced-settings');
+      const isVisible = advancedSettings.style.display === 'block';
+      advancedSettings.style.display = isVisible ? 'none' : 'block';
+      document.querySelector('.toggle-advanced-settings').textContent = isVisible ? 'Show Advanced Settings' : 'Hide Advanced Settings';
+    });
+
+    document.querySelector('.add-data-point').addEventListener('click', () => {
+      const dataInputs = document.querySelector('.data-inputs');
+      const newDataPoint = document.createElement('div');
+      newDataPoint.className = 'data-point';
+      newDataPoint.innerHTML = `
+        <div class="data-point-row">
+          <input type="text" class="data-label" placeholder="Label" />
+          <input type="number" class="data-value" min="0" placeholder="Value" />
+          <input type="color" class="data-color" value="#${Math.floor(Math.random()*16777215).toString(16)}" />
+          <button class="remove-data-point">Remove</button>
+        </div>
+      `;
+      dataInputs.insertBefore(newDataPoint, document.querySelector('.add-data-point'));
+      updatePieWarning();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('remove-data-point')) {
+        if (document.querySelectorAll('.data-point').length > 1) {
+          e.target.closest('.data-point').remove();
+          updatePieWarning();
+        }
+      }
+    });
+
+    document.querySelector('.chart-submit-button').addEventListener('click', () => {
+      try {
+        const title = document.querySelector('.title-input').value || 'Pie Chart';
+        const showTitle = document.querySelector('.title-toggle').checked;
+        const bgColor = document.querySelector('.background-color-input').value || '#ffffff';
+        const textColor = document.querySelector('.text-color-input').value || '#000000';
+        const titlePosition = document.querySelector('.title-position-input').value || 'top';
+        const legendPosition = document.querySelector('.legend-position-input').value || 'top-right';
+        const legendDistance = parseInt(document.querySelector('.legend-distance-input').value) || 40;
+        const showBorders = document.querySelector('.border-toggle').checked;
+        const chartWidth = parseInt(document.querySelector('.chart-width-input').value) || 800;
+        const chartHeight = parseInt(document.querySelector('.chart-height-input').value) || 600;
+        const showPieNumbers = document.querySelector('#show-pie-numbers').checked;
+        const pieNumbersColor = document.querySelector('#pie-numbers-color').value || '#000000';
+
+        currentBgColor = bgColor;
+        
+        updateChartDimensions(chartWidth, chartHeight);
+
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+
+        const labels = Array.from(document.querySelectorAll('.data-label')).map(input => input.value || 'Label');
+        const values = Array.from(document.querySelectorAll('.data-value')).map(input => parseFloat(input.value) || 0);
+        const colors = Array.from(document.querySelectorAll('.data-color')).map(input => input.value);
+
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        chartInstance = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: values,
+              backgroundColor: colors,
+              borderColor: showBorders ? '#ffffff' : 'transparent',
+              borderWidth: showBorders ? 1 : 0
+            }]
+          },
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: showTitle,
+                text: title,
+                font: { size: 18, family: 'Poppins', weight: 500, style: 'normal' },
+                color: textColor,
+                padding: 10,
+                ...getTitlePositionConfig(titlePosition)
+              },
+              legend: {
+                display: true,
+                ...getLegendPositionConfig(legendPosition),
+                labels: {
+                  font: { size: 12, family: 'Poppins', weight: 500, style: 'normal' },
+                  color: textColor,
+                  padding: legendDistance
+                }
+              },
+              datalabels: {
+                display: showPieNumbers,
+                color: pieNumbersColor,
+                anchor: 'center',
+                align: 'center',
+                font: {
+                  size: 12,
+                  family: 'Poppins',
+                  weight: 500
+                },
+                formatter: (value) => value
+              }
+            }
+          },
+          plugins: [backgroundColorPlugin, ChartDataLabels]
+        });
+
+        document.querySelector('.global--chart--view').classList.add('fade');
+        setTimeout(() => document.querySelector('.global--chart--view').classList.remove('fade'), 400);
+      } catch (error) {
+        console.error('Error updating chart:', error);
+      }
+    });
+
+    document.querySelector('.global--chart--button--download').addEventListener('click', () => {
+      try {
+        const canvasElement = document.getElementById('pieChart');
+        const chartWidth = parseInt(document.querySelector('.chart-width-input').value) || 800;
+        const chartHeight = parseInt(document.querySelector('.chart-height-input').value) || 600;
+
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = chartWidth;
+        tempCanvas.height = chartHeight;
+        const tempCtx = tempCanvas.getContext('2d');
+
+        tempCtx.fillStyle = currentBgColor;
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+        tempCtx.drawImage(canvasElement, (chartWidth - canvasElement.width) / 2, (chartHeight - canvasElement.height) / 2);
+
+        const link = document.createElement('a');
+        link.download = 'pie-chart.png';
+        link.href = tempCanvas.toDataURL('image/png', 1.0);
+        link.click();
+      } catch (error) {
+        console.error('Error downloading chart:', error);
+      }
+    });
+
+    document.querySelector('.global--chart--button--copy').addEventListener('click', () => {
+      try {
+        const canvasElement = document.getElementById('pieChart');
+        const notification = document.getElementById('copyNotification');
+        const chartWidth = parseInt(document.querySelector('.chart-width-input').value) || 800;
+        const chartHeight = parseInt(document.querySelector('.chart-height-input').value) || 600;
+
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = chartWidth;
+        tempCanvas.height = chartHeight;
+        const tempCtx = tempCanvas.getContext('2d');
+
+        tempCtx.fillStyle = currentBgColor;
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+        tempCtx.drawImage(canvasElement, (chartWidth - canvasElement.width) / 2, (chartHeight - canvasElement.height) / 2);
+
+        tempCanvas.toBlob(blob => {
+          const item = new ClipboardItem({ 'image/png': blob });
+          navigator.clipboard.write([item]).then(() => {
+            notification.classList.add('show');
+            setTimeout(() => {
+              notification.classList.remove('show');
+            }, 2000);
+          }).catch(err => console.error('Error copying to clipboard:', err));
+        }, 'image/png', 1.0);
+      } catch (error) {
+        console.error('Error copying chart:', error);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        initializeChart();
+        updatePieWarning();
+      } catch (error) {
+        console.error('Error initializing chart:', error);
+      }
+    });
+  </script>
+</body>
+</html>

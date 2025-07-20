@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+    <title>Free Chart Image Generator - imgcharts.com</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/shared/img/gblimgtabicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+
+
+<body class="main--body">
+
+    <div id="header"></div>
+    <script>
+    fetch('/html/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+    </script>
+
+
+
+
+    <main>
+        <div>
+
+            <div class="index--title">
+                <h1>Free Chart Maker</h1>
+                <p>Easily create amazing looking charts.</p>
+            </div>
+
+            <div class="type-group">
+                <div class="chart-type">
+                    <div class="icon bar-chart"></div>
+                    <span>Bar Chart</span>
+                </div>
+                <div class="chart-type">
+                    <div class="icon line-chart"></div>
+                    <span>Line Chart</span>
+                </div>
+                <div class="chart-type">
+                    <div class="icon pie-chart"></div>
+                    <span>Pie Chart</span>
+                </div>
+                <div class="chart-type">
+                    <div class="icon radar-chart"></div>
+                    <span>Radar Chart</span>
+                </div>
+                <div class="chart-type">
+                    <div class="icon donut-chart"></div>
+                    <span>Donut Chart</span>
+                </div>
+                <div class="chart-type">
+                    <div class="icon scatter-chart"></div>
+                    <span>Scatter Chart</span>
+                </div>
+                <div class="chart-type">
+                    <div class="icon area-chart"></div>
+                    <span>Area Chart</span>
+                </div>
+            </div>
+            <div class="index--link--direct index--box">
+
+                <div class="index--link--direct--button ">
+                    <div class="button-group">
+                        <div class="button-text">
+                            <div class="bar-icon"></div>
+                            Create Chart
+                        </div>
+                        <button class="SMR"><div class="chevron-down"></div></button>
+                    </div>
+                </div>
+                <div class="button--dropdown hidden"></div>
+
+
+
+
+                <div class="button-subtext">
+                    <p>Choose a chart type and customize it <strong><u>instantly.</u></strong></p>
+                </div>
+
+
+                
+                
+                
+            </div>
+            <script src="/script.js"></script>
+        </div> 
+    </main>
+
+
+</body>

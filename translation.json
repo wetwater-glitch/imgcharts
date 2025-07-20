@@ -1,0 +1,57 @@
+{
+  "en": {
+    "create": "Create",
+    "howItWorks": "How it works",
+    "barChart": "Bar Chart",
+    "lineChart": "Line Chart",
+    "pieChart": "Pie Chart",
+    "radarChart": "Radar Chart",
+    "donutChart": "Donut Chart",
+    "scatterChart": "Scatter Chart",
+    "areaChart": "Area Chart"
+  },
+  "es": {
+    "create": "Crear",
+    "howItWorks": "Cómo funciona",
+    "barChart": "Gráfico de barras",
+    "lineChart": "Gráfico de líneas",
+    "pieChart": "Gráfico de pastel",
+    "radarChart": "Gráfico de radar",
+    "donutChart": "Gráfico de dona",
+    "scatterChart": "Gráfico de dispersión",
+    "areaChart": "Gráfico de área"
+  },
+  "fr": {
+    "create": "Créer",
+    "howItWorks": "Comment ça marche",
+    "barChart": "Diagramme en barres",
+    "lineChart": "Graphique linéaire",
+    "pieChart": "Diagramme circulaire",
+    "radarChart": "Graphique radar",
+    "donutChart": "Diagramme en anneau",
+    "scatterChart": "Diagramme de dispersion",
+    "areaChart": "Graphique de surface"
+  },
+  "de": {
+    "create": "Erstellen",
+    "howItWorks": "Wie es funktioniert",
+    "barChart": "Balkendiagramm",
+    "lineChart": "Liniendiagramm",
+    "pieChart": "Kreisdiagramm",
+    "radarChart": "Radardiagramm",
+    "donutChart": "Donut-Diagramm",
+    "scatterChart": "Streudiagramm",
+    "areaChart": "Flächendiagramm"
+  },
+  "nl": {
+    "create": "Maken",
+    "howItWorks": "Hoe het werkt",
+    "barChart": "Staafdiagram",
+    "lineChart": "Lijndiagram",
+    "pieChart": "Cirkeldiagram",
+    "radarChart": "Radardiagram",
+    "donutChart": "Donutdiagram",
+    "scatterChart": "Spreidingsdiagram",
+    "areaChart": "Gebiedsgrafiek"
+  }
+}
