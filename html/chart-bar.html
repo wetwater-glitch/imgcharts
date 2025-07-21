@@ -14,7 +14,7 @@
 <body>
   <div id="header"></div>
   <script>
-    fetch('header.html')
+    fetch('html/header.html')
       .then(res => res.text())
       .then(data => (document.getElementById('header').innerHTML = data))
       .catch(err => console.error('Error loading header:', err));
@@ -230,7 +230,7 @@
 
   <div id="footer"></div>
   <script>
-    fetch('footer.html')
+    fetch('html/footer.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('footer').innerHTML = data;
