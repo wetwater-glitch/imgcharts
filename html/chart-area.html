@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Area Chart Maker - imgcharts.com</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/x-icon" href="/shared/img/gblimgtabicon.png" />
+  <link rel="stylesheet" href="imgcharts/style.css" />
+  <link rel="icon" type="image/x-icon" href="imgcharts/shared/img/gblimgtabicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -14,7 +14,7 @@
 <body class="area-chart-maker">
   <div id="header"></div>
   <script>
-    fetch('/html/header.html')
+    fetch('imgcharts/html/header.html')
       .then(res => res.text())
       .then(data => (document.getElementById('header').innerHTML = data))
       .catch(err => console.error('Error loading header:', err));
@@ -219,11 +219,11 @@
       <div class="chart--action--buttons">
         <button class="global--chart--button--download button-extract">
           Download as PNG
-          <img src="/shared/img/gblimgdownload.png" height="15" alt="Download" />
+          <img src="imgcharts/shared/img/gblimgdownload.png" height="15" alt="Download" />
         </button>
         <button class="global--chart--button--copy button-extract">
           Copy to Clipboard
-          <img src="/shared/img/gblimgcopy.png" height="18" alt="Copy" />
+          <img src="imgcharts/shared/img/gblimgcopy.png" height="18" alt="Copy" />
         </button>
       </div>
     </div>
@@ -231,7 +231,7 @@
 
   <div id="footer"></div>
   <script>
-    fetch('/html/footer.html')
+    fetch('imgcharts/html/footer.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('footer').innerHTML = data;
