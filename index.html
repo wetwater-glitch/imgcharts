@@ -1,143 +1,159 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Free Chart Image Generator - imgcharts.com</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="shared/img/gblimgtabicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Chart Image Generator - imgcharts.com</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="shared/img/gblimgtabicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900&display=swap"
+    rel="stylesheet"
+  />
 </head>
 
 <body>
-    <div id="header"></div>
-    <script>
+  <div id="header"></div>
+  <script defer>
     fetch('html/header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading header:', error));
-    </script>
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      })
+      .catch(err => console.error('Error loading header:', err));
+  </script>
 
-    <main class="main--index--page global--main">
-        <div class="index--content">
-            <div class="index--title">
-                <h1>Free Chart Maker</h1>
-                <p>Easily create amazing looking charts.</p>
-            </div>
+  <main class="main--index--page global--main">
+    <div class="index--content">
+      <div class="index--title">
+        <h1>Free Chart Maker</h1>
+        <p>Easily create amazing looking charts.</p>
+      </div>
 
-            <div class="type-group">
-                <div class="chart-type">
-                    <img src="shared/img/gblimgchartbar.png" alt="Bar Chart">
-                    <span>Bar Chart</span>
-                </div>
-                <div class="chart-type">
-                    <img src="shared/img/gblimgchartline.png" alt="Line Chart">
-                    <span>Line Chart</span>
-                </div>
-                <div class="chart-type">
-                    <img src="shared/img/gblimgchartpie.png" alt="Pie Chart">
-                    <span>Pie Chart</span>
-                </div>
-                <div class="chart-type">
-                    <img src="shared/img/gblimgchartradar.png" alt="Radar Chart">
-                    <span>Radar Chart</span>
-                </div>
-                <div class="chart-type">
-                    <img src="shared/img/gblimgchartdonut.png" alt="Donut Chart">
-                    <span>Donut Chart</span>
-                </div>
-                <div class="chart-type">
-                    <img src="shared/img/gblimgchartscatter.png" alt="Scatter Chart">
-                    <span>Scatter Chart</span>
-                </div>
-                <div class="chart-type">
-                    <img src="shared/img/gblimgchartarea.png" alt="Area Chart">
-                    <span>Area Chart</span>
-                </div>
-            </div>
-
-            <div class="index--link--direct index--box">
-                <div class="index--link--direct--button">
-                    <div class="button-group">
-                        <div class="button-text">
-                            <div class="bar-icon"></div>
-                            Create Chart
-                        </div>
-                        <button class="SMR"><div class="chevron-down"></div></button>
-                    </div>
-                </div>
-
-                <div class="button-dropdown">
-                    <div class="dropdown-menu">
-                        <a href="html/chart-bar.html">
-                            <img src="shared/img/gblimgchartwhitebar.png" alt="Bar Chart"> Bar Chart
-                        </a>
-                        <a href="html/chart-line.html">
-                            <img src="shared/img/gblimgchartwhiteline.png" alt="Line Chart"> Line Chart
-                        </a>
-                        <a href="html/chart-pie.html">
-                            <img src="shared/img/gblimgchartwhitepie.png" alt="Pie Chart"> Pie Chart
-                        </a>
-                        <a href="html/chart-radar.html">
-                            <img src="shared/img/gblimgchartwhiteradar.png" alt="Radar Chart"> Radar Chart
-                        </a>
-                        <a href="html/chart-donut.html">
-                            <img src="shared/img/gblimgchartwhitedonut.png" alt="Donut Chart"> Donut Chart
-                        </a>
-                        <a href="html/chart-scatter.html">
-                            <img src="shared/img/gblimgchartwhitescatter.png" alt="Scatter Chart"> Scatter Chart
-                        </a>
-                        <a href="html/chart-area.html">
-                            <img src="shared/img/gblimgchartwhitearea.png" alt="Area Chart"> Area Chart
-                        </a>
-                    </div>
-                </div>
-
-                <div class="button-subtext">
-                    <p>Choose a chart type and customize it <strong><u>instantly.</u></strong></p>
-                </div>
-            </div>
-
-            <div class="index--info">
-                <div class="index--info--content">
-                    <div class="info-box">
-                        <div class="info-icon">🔒</div>
-                        <div class="info-text">
-                            <h3>No Sign-Up Needed</h3>
-                            <p>Create and export charts instantly, no account required.</p>
-                        </div>
-                    </div>
-
-                    <div class="info-box">
-                        <div class="info-icon">🌐</div>
-                        <div class="info-text">
-                            <h3>Works Everywhere</h3>
-                            <p>Use on any device — phone, tablet, or desktop.</p>
-                        </div>
-                    </div>
-
-                    <div class="info-box">
-                        <div class="info-icon">🚫</div>
-                        <div class="info-text">
-                            <h3>No Watermarks</h3>
-                            <p>Your charts stay clean and unbranded — completely for free.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="type-group">
+        <div class="chart-type">
+          <img src="shared/img/gblimgchartbar.png" alt="Bar Chart" />
+          <span>Bar Chart</span>
         </div>
-    </main>
+        <div class="chart-type">
+          <img src="shared/img/gblimgchartline.png" alt="Line Chart" />
+          <span>Line Chart</span>
+        </div>
+        <div class="chart-type">
+          <img src="shared/img/gblimgchartpie.png" alt="Pie Chart" />
+          <span>Pie Chart</span>
+        </div>
+        <div class="chart-type">
+          <img src="shared/img/gblimgchartradar.png" alt="Radar Chart" />
+          <span>Radar Chart</span>
+        </div>
+        <div class="chart-type">
+          <img src="shared/img/gblimgchartdonut.png" alt="Donut Chart" />
+          <span>Donut Chart</span>
+        </div>
+        <div class="chart-type">
+          <img src="shared/img/gblimgchartscatter.png" alt="Scatter Chart" />
+          <span>Scatter Chart</span>
+        </div>
+        <div class="chart-type">
+          <img src="shared/img/gblimgchartarea.png" alt="Area Chart" />
+          <span>Area Chart</span>
+        </div>
+      </div>
 
-    <div id="footer"></div>
-    <script>
+      <div class="index--link--direct index--box">
+        <div class="index--link--direct--button">
+          <div class="button-group">
+            <div class="button-text">
+              <div class="bar-icon"></div>
+              Create Chart
+            </div>
+            <button class="SMR"><div class="chevron-down"></div></button>
+          </div>
+        </div>
+
+        <div class="button-dropdown">
+          <div class="dropdown-menu">
+            <a href="html/chart-bar.html">
+              <img src="shared/img/gblimgchartwhitebar.png" alt="Bar Chart" />
+              Bar Chart
+            </a>
+            <a href="html/chart-line.html">
+              <img src="shared/img/gblimgchartwhiteline.png" alt="Line Chart" />
+              Line Chart
+            </a>
+            <a href="html/chart-pie.html">
+              <img src="shared/img/gblimgchartwhitepie.png" alt="Pie Chart" />
+              Pie Chart
+            </a>
+            <a href="html/chart-radar.html">
+              <img src="shared/img/gblimgchartwhiteradar.png" alt="Radar Chart" />
+              Radar Chart
+            </a>
+            <a href="html/chart-donut.html">
+              <img src="shared/img/gblimgchartwhitedonut.png" alt="Donut Chart" />
+              Donut Chart
+            </a>
+            <a href="html/chart-scatter.html">
+              <img src="shared/img/gblimgchartwhitescatter.png" alt="Scatter Chart" />
+              Scatter Chart
+            </a>
+            <a href="html/chart-area.html">
+              <img src="shared/img/gblimgchartwhitearea.png" alt="Area Chart" />
+              Area Chart
+            </a>
+          </div>
+        </div>
+
+        <div class="button-subtext">
+          <p>
+            Choose a chart type and customize it <strong><u>instantly.</u></strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="index--info">
+        <div class="index--info--content">
+          <div class="info-box">
+            <div class="info-icon">🔒</div>
+            <div class="info-text">
+              <h3>No Sign-Up Needed</h3>
+              <p>Create and export charts instantly, no account required.</p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <div class="info-icon">🌐</div>
+            <div class="info-text">
+              <h3>Works Everywhere</h3>
+              <p>Use on any device — phone, tablet, or desktop.</p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <div class="info-icon">🚫</div>
+            <div class="info-text">
+              <h3>No Watermarks</h3>
+              <p>Your charts stay clean and unbranded — completely for free.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <script defer>
     fetch('html/footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading footer:', error));
-    </script>
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(err => console.error('Error loading footer:', err));
+  </script>
 
-    <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
+</html>
