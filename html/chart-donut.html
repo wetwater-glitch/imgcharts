@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bar Chart Maker - imgcharts.com</title>
+  <meta name="description" content="Donut Chart Maker - imgcharts.com">
+  <title>Donut Chart Maker - imgcharts.com</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/x-icon" href="/shared/img/gblimgtabicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
 
-<body>
+<body class="donut-chart-maker">
   <div id="header"></div>
   <script>
     fetch('/html/header.html')
@@ -22,159 +23,111 @@
 
   <main class="main--maker--page">
     <div class="global--chart--editor">
-      <h3>Chart Editor</h3>
+      <h3>Donut Chart Editor</h3>
 
-      <div class="chart-type-selector">
+      <div class="stack-type-selector">
         <label>
           Chart Type:
-          <select class="chart-type-input">
-            <option value="single">Single Bar Chart</option>
-            <option value="grouped">Grouped Bar Chart</option>
-          </select>
-        </label>
-        <label>
-          Orientation:
-          <select class="chart-orientation-input">
-            <option value="vertical">Vertical</option>
-            <option value="horizontal">Horizontal</option>
-          </select>
-        </label>
-        <label class="stack-type-selector" style="display: none;">
-          Bar Style:
           <select class="stack-type-input">
-            <option value="regular">Regular</option>
-            <option value="stacked">Stacked</option>
+            <option value="single" selected>Single Stack</option>
+            <option value="multi">Multi-Stack</option>
           </select>
         </label>
       </div>
 
-      <div class="single-bar-settings">
-        <label>
-          Chart Title:
-          <input type="text" class="chart-title-input" placeholder="Enter chart title" />
-        </label>
-
-        <label>
-          X-Axis Label:
-          <input type="text" class="x-axis-label-input" placeholder="e.g., Categories" />
-        </label>
-
-        <label>
-          Y-Axis Label:
-          <input type="text" class="y-axis-label-input" placeholder="e.g., Values" />
-        </label>
-
-        <label>
-          Bar Color:
-          <input type="color" class="bar-color-input" value="#007bff" />
-        </label>
-
-        <label class="bar-width-label">
-          Bar Width (%):
-          <input type="range" class="bar-width-input" min="10" max="100" value="30" />
-          <span class="bar-width-value">30%</span>
-        </label>
-
-        <div class="data-inputs">
-          <h4>Data Points</h4>
-          <div class="single-bar-warning" style="display: none;">
-            Add more data points for a more meaningful chart.
-          </div>
-          <div class="data-point">
-            <input type="text" class="data-label" placeholder="Label" />
-            <input type="number" class="data-value" min="0" placeholder="Value" />
-            <button class="remove-data-point">Remove</button>
-          </div>
-          <button class="add-data-point">Add Data Point</button>
-        </div>
-
-        <button class="toggle-advanced-settings">Show Advanced Settings</button>
-        <div class="advanced-settings" style="display: none;">
-          <h4>Advanced Settings</h4>
-          <div class="advanced-settings-note">
-            Charts are responsive by default. Set custom dimensions for precise control (e.g., for export).
-          </div>
+      <div class="settings-grid">
+        <div class="chart-title-container">
           <label>
-            Background Color:
-            <input type="color" class="background-color-input" value="#ffffff" />
+            Chart Title:
+            <input type="text" class="chart-title-input" placeholder="Enter chart title" value="Donut Chart" />
           </label>
-          <label>
-            Text Color:
-            <input type="color" class="text-color-input" value="#000000" />
-          </label>
-          <label>
-            Chart Width (px):
-            <input type="number" class="chart-width-input" min="400" max="2000" value="800" />
-          </label>
-          <label>
-            Chart Height (px):
-            <input type="number" class="chart-height-input" min="300" max="2000" value="400" />
-          </label>
-          <div class="bar-numbers-toggle-container">
-            <label>
-              <input type="checkbox" id="show-bar-numbers-single" name="show-bar-numbers-single">
-              Show Numbers Inside Bars
-            </label>
-          </div>
-          <div class="bar-numbers-color-container">
-            <label>
-              Bar Numbers Color
-              <input type="color" id="bar-numbers-color-single" name="bar-numbers-color-single" value="#000000">
-            </label>
-          </div>
         </div>
       </div>
 
-      <div class="grouped-bar-settings" style="display: none;">
-        <label>
-          Chart Title:
-          <input type="text" class="chart-title-input" placeholder="Enter chart title" />
-        </label>
-
-        <label>
-          X-Axis Label:
-          <input type="text" class="x-axis-label-input" placeholder="e.g., Categories" />
-        </label>
-
-        <label>
-          Y-Axis Label:
-          <input type="text" class="y-axis-label-input" placeholder="e.g., Values" />
-        </label>
-
-        <div class="group-inputs">
-          <h4>Groups</h4>
-          <div class="group-point">
-            <input type="text" class="group-label" placeholder="Group Label" />
-            <input type="color" class="group-color" value="#007bff" />
-            <button class="remove-group-point">Remove</button>
-          </div>
-          <div class="group-point">
-            <input type="text" class="group-label" placeholder="Group Label" />
-            <input type="color" class="group-color" value="#ff4d4d" />
-            <button class="remove-group-point">Remove</button>
-          </div>
-          <button class="add-group-point">Add Group</button>
+      <div class="label-inputs">
+        <h4>Labels</h4>
+        <div class="donut-label-warning">
+          Add at least one label for a valid donut chart.
         </div>
+        <div class="label-point">
+          <input type="text" class="label-value" placeholder="Label 1" value="Category 1" />
+          <button class="remove-label-point">Remove</button>
+        </div>
+        <div class="label-point">
+          <input type="text" class="label-value" placeholder="Label 2" value="Category 2" />
+          <button class="remove-label-point">Remove</button>
+        </div>
+        <div class="label-point">
+          <input type="text" class="label-value" placeholder="Label 3" value="Category 3" />
+          <button class="remove-label-point">Remove</button>
+        </div>
+        <button class="add-label-point">Add Label</button>
+      </div>
 
-        <div class="data-inputs">
-          <h4>Data Points</h4>
-          <div class="data-point">
-            <input type="text" class="data-label" placeholder="Label" />
-            <div class="group-values">
-              <input type="number" class="data-value" min="0" placeholder="Value for Group 1" />
-              <input type="number" class="data-value" min="0" placeholder="Value for Group 2" />
-            </div>
+      <div class="data-inputs" style="display: block;">
+        <h4>Data</h4>
+        <div class="donut-data-warning">
+          Add at least one data point with a value.
+        </div>
+        <div class="data-point">
+          <div class="data-point-row">
+            <input type="number" class="data-value" placeholder="Value for Category 1" value="30" step="0.01" />
+            <input type="color" class="data-color" value="#007bff" />
             <button class="remove-data-point">Remove</button>
           </div>
-          <button class="add-data-point">Add Data Point</button>
         </div>
-
-        <button class="toggle-advanced-settings">Show Advanced Settings</button>
-        <div class="advanced-settings" style="display: none;">
-          <h4>Advanced Settings</h4>
-          <div class="advanced-settings-note">
-            Charts are responsive by default. Set custom dimensions for precise control (e.g., for export).
+        <div class="data-point">
+          <div class="data-point-row">
+            <input type="number" class="data-value" placeholder="Value for Category 2" value="50" step="0.01" />
+            <input type="color" class="data-color" value="#ff4d4d" />
+            <button class="remove-data-point">Remove</button>
           </div>
+        </div>
+        <div class="data-point">
+          <div class="data-point-row">
+            <input type="number" class="data-value" placeholder="Value for Category 3" value="20" step="0.01" />
+            <input type="color" class="data-color" value="#28a745" />
+            <button class="remove-data-point">Remove</button>
+          </div>
+        </div>
+        <button class="add-data-point">Add Data Point</button>
+      </div>
+
+      <div class="dataset-inputs" style="display: none;">
+        <h4>Datasets</h4>
+        <div class="donut-dataset-warning">
+          Add at least one dataset with values for each label.
+        </div>
+        <div class="dataset-point">
+          <input type="text" class="dataset-label" placeholder="Dataset 1" value="Dataset 1" />
+          <input type="color" class="dataset-color" value="#007bff" />
+          <div class="dataset-values">
+            <input type="number" class="data-value" placeholder="Value for Category 1" value="30" step="0.01" />
+            <input type="number" class="data-value" placeholder="Value for Category 2" value="50" step="0.01" />
+            <input type="number" class="data-value" placeholder="Value for Category 3" value="20" step="0.01" />
+          </div>
+          <button class="remove-dataset-point">Remove</button>
+        </div>
+        <div class="dataset-point">
+          <input type="text" class="dataset-label" placeholder="Dataset 2" value="Dataset 2" />
+          <input type="color" class="dataset-color" value="#ff4d4d" />
+          <div class="dataset-values">
+            <input type="number" class="data-value" placeholder="Value for Category 1" value="40" step="0.01" />
+            <input type="number" class="data-value" placeholder="Value for Category 2" value="30" step="0.01" />
+            <input type="number" class="data-value" placeholder="Value for Category 3" value="25" step="0.01" />
+          </div>
+          <button class="remove-dataset-point">Remove</button>
+        </div>
+        <button class="add-dataset-point">Add Dataset</button>
+      </div>
+
+      <button class="toggle-advanced-settings">Show Advanced Settings</button>
+      <div class="advanced-settings" style="display: none;">
+        <h4>Advanced Settings</h4>
+        <div class="advanced-settings-note">
+          Charts are responsive by default. Adjust settings for a customized donut chart.
+        </div>
+        <div class="dimension-settings">
           <label>
             Background Color:
             <input type="color" class="background-color-input" value="#ffffff" />
@@ -184,25 +137,32 @@
             <input type="color" class="text-color-input" value="#000000" />
           </label>
           <label>
-            Chart Width (px):
-            <input type="number" class="chart-width-input" min="400" max="2000" value="800" />
+            Chart Size (px):
+            <input type="range" class="chart-size-input" min="400" max="1000" value="600" />
+            <span class="chart-size-value">600px</span>
           </label>
           <label>
-            Chart Height (px):
-            <input type="number" class="chart-height-input" min="300" max="2000" value="400" />
+            Donut Hole Size (%):
+            <input type="range" class="donut-hole-size-input" min="0" max="80" value="50" />
+            <span class="donut-hole-size-value">50%</span>
           </label>
-          <div class="bar-numbers-toggle-container">
-            <label>
-              <input type="checkbox" id="show-bar-numbers-grouped" name="show-bar-numbers-grouped">
-              Show Numbers Inside Bars
-            </label>
-          </div>
-          <div class="bar-numbers-color-container">
-            <label>
-              Bar Numbers Color
-              <input type="color" id="bar-numbers-color-grouped" name="bar-numbers-color-grouped" value="#000000">
-            </label>
-          </div>
+          <label class="stack-gap-container" style="display: none;">
+            Stack Gap (px):
+            <input type="range" class="stack-gap-input" min="0" max="20" value="5" />
+            <span class="stack-gap-value">5px</span>
+          </label>
+          <label>
+            Show Legend:
+            <input type="checkbox" class="show-legend-input" checked />
+          </label>
+          <label>
+            Show Numbers on Slices:
+            <input type="checkbox" id="show-donut-numbers" name="show-donut-numbers" />
+          </label>
+          <label>
+            Slice Numbers Color:
+            <input type="color" id="donut-numbers-color" name="donut-numbers-color" value="#000000" />
+          </label>
         </div>
       </div>
 
@@ -211,19 +171,17 @@
 
     <div class="chart--interaction--section">
       <div class="global--chart--view">
-        <canvas id="barChart"></canvas>
+        <canvas id="donutChart"></canvas>
       </div>
-
       <div class="chart--action--buttons">
-        <div class="global--chart--button--download button-extract">
+        <button class="global--chart--button--download button-extract">
           Download as PNG
-          <img src="/shared/img/gblimgdownload.png" height="15" />
-        </div>
-
-        <div class="global--chart--button--copy button-extract">
+          <img src="/shared/img/gblimgdownload.png" height="15" alt="Download" />
+        </button>
+        <button class="global--chart--button--copy button-extract">
           Copy to Clipboard
-          <img src="/shared/img/gblimgcopy.png" height="18" />
-        </div>
+          <img src="/shared/img/gblimgcopy.png" height="18" alt="Copy" />
+        </button>
       </div>
     </div>
   </main>
@@ -239,101 +197,124 @@
   </script>
 
   <div class="notification" id="copyNotification">Copied to clipboard!</div>
+  <div class="notification" id="downloadNotification">Download started!</div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
-    let chartInstance = null;
-    let currentBgColor = '#ffffff';
-    let canShowNotification = false;
+    document.addEventListener('DOMContentLoaded', function() {
+      // Register the datalabels plugin
+      Chart.register(ChartDataLabels);
 
-    // Register the DataLabels plugin
-    Chart.register(ChartDataLabels);
+      // Chart instance and configuration variables
+      let chartInstance = null;
+      let currentBgColor = '#ffffff';
 
-    (function() {
-      const notification = document.getElementById('copyNotification');
-      if (notification) {
-        notification.classList.remove('show');
-        notification.style.display = 'none';
-        console.log('Notification hidden on script initialization');
+      // DOM Elements
+      const chartCanvas = document.getElementById('donutChart');
+      const stackTypeInput = document.querySelector('.stack-type-input');
+      const dataInputs = document.querySelector('.data-inputs');
+      const datasetInputs = document.querySelector('.dataset-inputs');
+      const stackGapContainer = document.querySelector('.stack-gap-container');
+      const updateButton = document.querySelector('.chart-submit-button');
+      const downloadButton = document.querySelector('.global--chart--button--download');
+      const copyButton = document.querySelector('.global--chart--button--copy');
+      const copyNotification = document.getElementById('copyNotification');
+      const downloadNotification = document.getElementById('downloadNotification');
+
+      // Helper function to convert hex to rgba
+      function hexToRgba(hex, alpha = 1) {
+        let cleanHex = hex.replace('#', '');
+        if (cleanHex.length === 3) {
+          cleanHex = cleanHex
+            .split('')
+            .map(char => char + char)
+            .join('');
+        }
+        if (!/^[0-9a-fA-F]{6}$/.test(cleanHex)) {
+          return `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`; // Random color if invalid
+        }
+        const r = parseInt(cleanHex.slice(0, 2), 16);
+        const g = parseInt(cleanHex.slice(2, 4), 16);
+        const b = parseInt(cleanHex.slice(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
       }
-    })();
 
-    const backgroundColorPlugin = {
-      id: 'customCanvasBackground',
-      beforeDraw: (chart) => {
-        const ctx = chart.ctx;
-        ctx.save();
-        ctx.fillStyle = currentBgColor;
-        ctx.fillRect(0, 0, chart.width, chart.height);
-        ctx.restore();
-      }
-    };
+      // Initialize the chart
+      function initializeChart() {
+        const initialSize = 600;
+        updateChartDimensions(initialSize);
 
-    function updateChartDimensions(width, height) {
-      const chartView = document.querySelector('.global--chart--view');
-      const canvas = document.getElementById('barChart');
-      
-      chartView.style.width = `${width}px`;
-      chartView.style.height = `${height}px`;
-      chartView.style.minHeight = `${height}px`;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      canvas.width = width;
-      canvas.height = height;
-      
-      if (chartInstance) {
-        chartInstance.resize();
-      }
-    }
-
-    function initializeChart() {
-      const ctx = document.getElementById('barChart').getContext('2d');
-      if (!ctx) {
-        console.error('Canvas context not found for barChart');
-        return;
-      }
-      
-      const initialWidth = parseInt(document.querySelector('.chart-width-input').value) || 800;
-      const initialHeight = parseInt(document.querySelector('.chart-height-input').value) || 400;
-      updateChartDimensions(initialWidth, initialHeight);
-      
-      chartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['A', 'B', 'C', 'D'],
+        const ctx = chartCanvas.getContext('2d');
+        const labels = ['Category 1', 'Category 2', 'Category 3'];
+        const dataConfig = {
+          labels: labels,
           datasets: [{
-            label: '',
-            data: [60, 80, 40, 90],
-            backgroundColor: '#007bff',
-            borderRadius: 5,
-            barPercentage: 0.3,
-            categoryPercentage: 0.6
+            label: 'Dataset 1',
+            data: [30, 50, 20],
+            backgroundColor: [
+              hexToRgba('#007bff', 0.8),
+              hexToRgba('#ff4d4d', 0.8),
+              hexToRgba('#28a745', 0.8)
+            ],
+            borderColor: ['#007bff', '#ff4d4d', '#28a745'],
+            borderWidth: 1,
+            cutout: '50%'
           }]
-        },
-        options: {
-          indexAxis: 'x',
+        };
+
+        chartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: dataConfig,
+          options: getChartOptions('Donut Chart', '#000000', true, 50, 0, false, '#000000'),
+          plugins: [{
+            id: 'customCanvasBackground',
+            beforeDraw: (chart) => {
+              const ctx = chart.ctx;
+              ctx.save();
+              ctx.fillStyle = currentBgColor;
+              ctx.fillRect(0, 0, chart.width, chart.height);
+              ctx.restore();
+            }
+          }, ChartDataLabels]
+        });
+      }
+
+      // Get chart options based on configuration
+      function getChartOptions(title, textColor, showLegend, cutoutPercentage, stackGap, showDonutNumbers, donutNumbersColor) {
+        return {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
+          layout: {
+            padding: {
+              top: 15,
+              bottom: 20
+            }
+          },
+          cutout: `${cutoutPercentage}%`,
           plugins: {
             title: {
               display: true,
-              text: 'Chart Title',
-              font: { size: 18, family: 'Poppins', weight: 500, style: 'normal' },
-              color: '#000000'
+              text: title,
+              font: { size: 18, family: 'Poppins', weight: 500 },
+              color: textColor,
+              padding: {
+                top: 0,
+                bottom: 10
+              }
             },
             legend: {
-              display: false,
+              display: showLegend,
               position: 'top',
               labels: {
-                font: { size: 12, family: 'Poppins', weight: 500, style: 'normal' },
-                color: '#000000'
+                font: { size: 12, family: 'Poppins', weight: 400 },
+                color: textColor,
+                padding: 20
               }
             },
             datalabels: {
-              display: false,
-              color: '#000000',
+              display: showDonutNumbers,
+              color: donutNumbersColor,
               anchor: 'center',
               align: 'center',
               font: {
@@ -343,419 +324,339 @@
               },
               formatter: (value) => value
             }
-          },
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: 'Categories',
-                font: { size: 14, family: 'Poppins', weight: 500, style: 'normal' },
-                color: '#000000'
-              },
-              ticks: {
-                color: '#000000',
-                font: { size: 12, family: 'Poppins', weight: 500, style: 'normal' }
-              },
-              grid: { display: false }
-            },
-            y: {
-              title: {
-                display: true,
-                text: 'Values',
-                font: { size: 14, family: 'Poppins', weight: 500, style: 'normal' },
-                color: '#000000'
-              },
-              ticks: {
-                color: '#000000',
-                font: { size: 12, family: 'Poppins', weight: 500, style: 'normal' }
-              },
-              beginAtZero: true,
-              grid: { color: '#e0e0e0' }
-            }
           }
-        },
-        plugins: [backgroundColorPlugin, ChartDataLabels]
-      });
-    }
-
-    function updateGroupValues() {
-      const groupInputs = document.querySelectorAll('.group-point');
-      const dataPoints = document.querySelectorAll('.grouped-bar-settings .data-point');
-      const groupCount = groupInputs.length;
-
-      dataPoints.forEach(dataPoint => {
-        const groupValuesContainer = dataPoint.querySelector('.group-values');
-        const currentValues = Array.from(dataPoint.querySelectorAll('.data-value')).map(input => input.value);
-        groupValuesContainer.innerHTML = '';
-        groupInputs.forEach((group, index) => {
-          const valueInput = document.createElement('input');
-          valueInput.type = 'number';
-          valueInput.className = 'data-value';
-          valueInput.min = '0';
-          valueInput.placeholder = `Value for Group ${index + 1}`;
-          valueInput.value = currentValues[index] || '';
-          groupValuesContainer.appendChild(valueInput);
-        });
-      });
-    }
-
-    function updateSingleBarWarning() {
-      const dataPoints = document.querySelectorAll('.single-bar-settings .data-point');
-      const warning = document.querySelector('.single-bar-warning');
-      if (dataPoints.length === 1) {
-        warning.style.display = 'block';
-      } else {
-        warning.style.display = 'none';
+        };
       }
-    }
 
-    document.querySelectorAll('.bar-width-input').forEach(input => {
-      input.addEventListener('input', function() {
-        const valueDisplay = this.nextElementSibling;
-        if (valueDisplay && valueDisplay.classList.contains('bar-width-value')) {
-          valueDisplay.textContent = `${this.value}%`;
-        }
-      });
-    });
+      // Update chart dimensions
+      function updateChartDimensions(size) {
+        const chartView = document.querySelector('.global--chart--view');
+        chartView.style.width = `${size}px`;
+        chartView.style.height = `${size}px`;
+        chartView.style.minHeight = `${size}px`;
 
-    document.querySelectorAll('.toggle-advanced-settings').forEach(button => {
-      button.addEventListener('click', () => {
-        const advancedSettings = button.nextElementSibling;
-        const isVisible = advancedSettings.style.display === 'block';
-        advancedSettings.style.display = isVisible ? 'none' : 'block';
-        button.textContent = isVisible ? 'Show Advanced Settings' : 'Hide Advanced Settings';
-      });
-    });
-
-    document.querySelector('.chart-type-input').addEventListener('change', (e) => {
-      const singleSettings = document.querySelector('.single-bar-settings');
-      const groupedSettings = document.querySelector('.grouped-bar-settings');
-      const barWidthLabel = document.querySelector('.bar-width-label');
-      const stackTypeSelector = document.querySelector('.stack-type-selector');
-      if (e.target.value === 'single') {
-        singleSettings.style.display = 'block';
-        groupedSettings.style.display = 'none';
-        stackTypeSelector.style.display = 'none';
-        if (barWidthLabel) barWidthLabel.style.display = 'block';
-        updateSingleBarWarning();
-      } else {
-        singleSettings.style.display = 'none';
-        groupedSettings.style.display = 'block';
-        stackTypeSelector.style.display = 'block';
-        if (barWidthLabel) barWidthLabel.style.display = 'none';
-        updateGroupValues();
-      }
-    });
-
-    document.querySelectorAll('.add-data-point').forEach(button => {
-      button.addEventListener('click', (e) => {
-        const dataInputs = button.parentElement;
-        const newDataPoint = document.createElement('div');
-        newDataPoint.className = 'data-point';
-        if (button.closest('.grouped-bar-settings')) {
-          const groupInputs = document.querySelectorAll('.group-point');
-          newDataPoint.innerHTML = `
-            <input type="text" class="data-label" placeholder="Label" />
-            <div class="group-values">
-              ${Array.from(groupInputs).map((_, index) => `
-                <input type="number" class="data-value" min="0" placeholder="Value for Group ${index + 1}" />
-              `).join('')}
-            </div>
-            <button class="remove-data-point">Remove</button>
-          `;
-        } else {
-          newDataPoint.innerHTML = `
-            <input type="text" class="data-label" placeholder="Label" />
-            <input type="number" class="data-value" min="0" placeholder="Value" />
-            <button class="remove-data-point">Remove</button>
-          `;
-        }
-        dataInputs.insertBefore(newDataPoint, button);
-        if (button.closest('.single-bar-settings')) {
-          updateSingleBarWarning();
-        }
-      });
-    });
-
-    document.querySelector('.add-group-point').addEventListener('click', () => {
-      const groupInputs = document.querySelector('.group-inputs');
-      const newGroupPoint = document.createElement('div');
-      newGroupPoint.className = 'group-point';
-      newGroupPoint.innerHTML = `
-        <input type="text" class="group-label" placeholder="Group Label" />
-        <input type="color" class="group-color" value="#${Math.floor(Math.random()*16777215).toString(16)}" />
-        <button class="remove-group-point">Remove</button>
-      `;
-      groupInputs.insertBefore(newGroupPoint, document.querySelector('.add-group-point'));
-      updateGroupValues();
-    });
-
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('remove-data-point')) {
-        if (e.target.closest('.data-inputs').querySelectorAll('.data-point').length > 1) {
-          e.target.parentElement.remove();
-          if (e.target.closest('.single-bar-settings')) {
-            updateSingleBarWarning();
-          }
-        }
-      }
-      if (e.target.classList.contains('remove-group-point')) {
-        if (document.querySelectorAll('.group-point').length > 1) {
-          e.target.parentElement.remove();
-          updateGroupValues();
-        }
-      }
-    });
-
-    document.querySelector('.chart-submit-button').addEventListener('click', () => {
-      try {
-        const chartType = document.querySelector('.chart-type-input').value;
-        const title = document.querySelector(`.${chartType}-bar-settings .chart-title-input`).value || 'Chart Title';
-        const xAxis = document.querySelector(`.${chartType}-bar-settings .x-axis-label-input`).value || 'Categories';
-        const yAxis = document.querySelector(`.${chartType}-bar-settings .y-axis-label-input`).value || 'Values';
-        const bgColor = document.querySelector(`.${chartType}-bar-settings .background-color-input`).value || '#ffffff';
-        const textColor = document.querySelector(`.${chartType}-bar-settings .text-color-input`).value || '#000000';
-        const barWidth = parseFloat(document.querySelector(`.${chartType}-bar-settings .bar-width-input`)?.value || 30) / 100 || 0.3;
-        const chartWidth = parseInt(document.querySelector(`.${chartType}-bar-settings .chart-width-input`).value) || 800;
-        const chartHeight = parseInt(document.querySelector(`.${chartType}-bar-settings .chart-height-input`).value) || 400;
-        const orientation = document.querySelector('.chart-orientation-input').value || 'vertical';
-        const stackType = chartType === 'grouped' ? document.querySelector('.stack-type-input').value : 'regular';
-        const showBarNumbers = document.querySelector(`#show-bar-numbers-${chartType}`).checked;
-        const barNumbersColor = document.querySelector(`#bar-numbers-color-${chartType}`).value || '#000000';
-
-        currentBgColor = bgColor;
-        
-        updateChartDimensions(chartWidth, chartHeight);
+        chartCanvas.style.width = `${size}px`;
+        chartCanvas.style.height = `${size}px`;
+        chartCanvas.width = size;
+        chartCanvas.height = size;
 
         if (chartInstance) {
-          chartInstance.destroy();
+          chartInstance.resize();
         }
-
-        const ctx = document.getElementById('barChart').getContext('2d');
-        let dataConfig;
-
-        if (chartType === 'single') {
-          const labels = Array.from(document.querySelectorAll('.single-bar-settings .data-label')).map(input => input.value || 'Label');
-          const values = Array.from(document.querySelectorAll('.single-bar-settings .data-value')).map(input => parseFloat(input.value) || 0);
-          const barColor = document.querySelector('.single-bar-settings .bar-color-input').value || '#007bff';
-
-          dataConfig = {
-            labels: labels,
-            datasets: [{
-              label: '',
-              data: values,
-              backgroundColor: barColor,
-              borderRadius: 5,
-              barPercentage: barWidth,
-              categoryPercentage: 0.6
-            }]
-          };
-        } else {
-          const labels = Array.from(document.querySelectorAll('.grouped-bar-settings .data-label')).map(input => input.value || 'Label');
-          const groupInputs = document.querySelectorAll('.group-point');
-          const datasets = Array.from(groupInputs).map((group, index) => {
-            const groupLabel = group.querySelector('.group-label').value || `Group ${index + 1}`;
-            const groupColor = group.querySelector('.group-color').value;
-            const values = Array.from(document.querySelectorAll('.grouped-bar-settings .data-point')).map(dataPoint => {
-              const valueInputs = dataPoint.querySelectorAll('.data-value');
-              return parseFloat(valueInputs[index].value) || 0;
-            });
-            return {
-              label: groupLabel,
-              data: values,
-              backgroundColor: groupColor,
-              borderRadius: 5,
-              barPercentage: 1.0,
-              categoryPercentage: 0.6
-            };
-          });
-
-          dataConfig = {
-            labels: labels,
-            datasets: datasets
-          };
-        }
-
-        chartInstance = new Chart(ctx, {
-          type: 'bar',
-          data: dataConfig,
-          options: {
-            indexAxis: orientation === 'horizontal' ? 'y' : 'x',
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              title: {
-                display: true,
-                text: title,
-                font: { size: 18, family: 'Poppins', weight: 500, style: 'normal' },
-                color: textColor
-              },
-              legend: {
-                display: chartType === 'grouped' ? true : false,
-                position: 'top',
-                labels: {
-                  font: { size: 12, family: 'Poppins', weight: 500, style: 'normal' },
-                  color: textColor
-                }
-              },
-              datalabels: {
-                display: showBarNumbers,
-                color: barNumbersColor,
-                anchor: 'center',
-                align: 'center',
-                font: {
-                  size: 12,
-                  family: 'Poppins',
-                  weight: 500
-                },
-                formatter: (value) => value
-              }
-            },
-            scales: {
-              [orientation === 'horizontal' ? 'y' : 'x']: {
-                title: {
-                  display: true,
-                  text: xAxis,
-                  font: { size: 14, family: 'Poppins', weight: 500, style: 'normal' },
-                  color: textColor
-                },
-                ticks: {
-                  color: textColor,
-                  font: { size: 12, family: 'Poppins', weight: 500, style: 'normal' }
-                },
-                grid: {
-                  display: orientation === 'horizontal' ? true : false,
-                  color: orientation === 'horizontal' ? '#e0e0e0' : undefined
-                },
-                stacked: chartType === 'grouped' && stackType === 'stacked'
-              },
-              [orientation === 'horizontal' ? 'x' : 'y']: {
-                title: {
-                  display: true,
-                  text: yAxis,
-                  font: { size: 14, family: 'Poppins', weight: 500, style: 'normal' },
-                  color: textColor
-                },
-                ticks: {
-                  color: textColor,
-                  font: { size: 12, family: 'Poppins', weight: 500, style: 'normal' }
-                },
-                beginAtZero: true,
-                grid: {
-                  display: orientation === 'vertical' ? true : false,
-                  color: orientation === 'vertical' ? '#e0e0e0' : undefined
-                },
-                stacked: chartType === 'grouped' && stackType === 'stacked'
-              }
-            }
-          },
-          plugins: [backgroundColorPlugin, ChartDataLabels]
-        });
-
-        chartInstance.resize();
-        document.querySelector('.global--chart--view').classList.add('fade');
-        setTimeout(() => document.querySelector('.global--chart--view').classList.remove('fade'), 400);
-      } catch (error) {
-        console.error('Error updating chart:', error);
       }
-    });
 
-    document.querySelector('.global--chart--button--download').addEventListener('click', () => {
-      try {
-        const chartView = document.querySelector('.global--chart--view');
-        const canvasElement = document.getElementById('barChart');
-        const chartWidth = parseInt(chartView.style.width) || 800;
-        const chartHeight = parseInt(chartView.style.height) || 400;
+      // Update dataset values based on labels
+      function updateDatasetValues() {
+        const labels = document.querySelectorAll('.label-point .label-value');
+        const datasetInputs = document.querySelectorAll('.dataset-point');
 
-        const tempCanvas = document.createElement('canvas');
-        tempCanvas.width = chartWidth;
-        tempCanvas.height = chartHeight;
-        const tempCtx = tempCanvas.getContext('2d');
+        datasetInputs.forEach(dataset => {
+          const datasetValuesContainer = dataset.querySelector('.dataset-values');
+          const currentValues = Array.from(dataset.querySelectorAll('.data-value')).map(input => input.value);
+          datasetValuesContainer.innerHTML = '';
 
-        tempCtx.fillStyle = currentBgColor;
-        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-        tempCtx.drawImage(canvasElement, 0, 0, chartWidth, chartHeight);
-
-        const link = document.createElement('a');
-        link.download = 'chart.png';
-        link.href = tempCanvas.toDataURL('image/png');
-        link.click();
-      } catch (error) {
-        console.error('Error downloading chart:', error);
-      }
-    });
-
-    document.querySelector('.global--chart--button--copy').addEventListener('click', () => {
-      try {
-        const chartView = document.querySelector('.global--chart--view');
-        const canvasElement = document.getElementById('barChart');
-        const notification = document.getElementById('copyNotification');
-        const chartWidth = parseInt(chartView.style.width) || 800;
-        const chartHeight = parseInt(chartView.style.height) || 400;
-
-        canShowNotification = true;
-        console.log('Copy button clicked, enabling notification');
-
-        notification.classList.remove('show');
-        notification.style.display = 'block';
-
-        const tempCanvas = document.createElement('canvas');
-        tempCanvas.width = chartWidth;
-        tempCanvas.height = chartHeight;
-        const tempCtx = tempCanvas.getContext('2d');
-
-        tempCtx.fillStyle = currentBgColor;
-        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-        tempCtx.drawImage(canvasElement, 0, 0, chartWidth, chartHeight);
-
-        tempCanvas.toBlob(blob => {
-          const item = new ClipboardItem({ 'image/png': blob });
-          navigator.clipboard.write([item]).then(() => {
-            if (canShowNotification) {
-              console.log('Showing notification after successful clipboard write');
-              notification.classList.add('show');
-              setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                  notification.style.display = 'none';
-                  console.log('Notification hidden after timeout');
-                }, 300);
-              }, 2000);
-            }
-          }).catch(err => {
-            console.error('Error copying to clipboard:', err);
+          labels.forEach((label, index) => {
+            const valueInput = document.createElement('input');
+            valueInput.type = 'number';
+            valueInput.className = 'data-value';
+            valueInput.step = '0.01';
+            valueInput.placeholder = `Value for ${label.value || `Label ${index + 1}`}`;
+            valueInput.value = currentValues[index] || '';
+            datasetValuesContainer.appendChild(valueInput);
           });
         });
-      } catch (error) {
-        console.error('Error copying chart:', error);
       }
-    });
 
-    document.addEventListener('DOMContentLoaded', () => {
-      try {
-        const notification = document.getElementById('copyNotification');
-        notification.classList.remove('show');
-        notification.style.display = 'none';
-        canShowNotification = false;
-        console.log('DOMContentLoaded: Notification hidden and disabled');
+      // Show notification
+      function showNotification(element, message) {
+        element.textContent = message;
+        element.classList.add('show');
+        setTimeout(() => {
+          element.classList.remove('show');
+        }, 2000);
+      }
 
-        initializeChart();
-        document.querySelectorAll('.bar-width-input').forEach(input => {
-          const valueDisplay = input.nextElementSibling;
-          if (valueDisplay && valueDisplay.classList.contains('bar-width-value')) {
-            valueDisplay.textContent = `${input.value}%`;
+      // Toggle stack type
+      stackTypeInput.addEventListener('change', () => {
+        const isMultiStack = stackTypeInput.value === 'multi';
+        dataInputs.style.display = isMultiStack ? 'none' : 'block';
+        datasetInputs.style.display = isMultiStack ? 'block' : 'none';
+        stackGapContainer.style.display = isMultiStack ? 'block' : 'none';
+        updateDatasetValues();
+      });
+
+      // Add label point
+      document.querySelector('.add-label-point').addEventListener('click', () => {
+        const labelInputs = document.querySelector('.label-inputs');
+        const newLabelPoint = document.createElement('div');
+        newLabelPoint.className = 'label-point';
+        newLabelPoint.innerHTML = `
+          <input type="text" class="label-value" placeholder="Label ${document.querySelectorAll('.label-point').length + 1}" />
+          <button class="remove-label-point">Remove</button>
+        `;
+        labelInputs.insertBefore(newLabelPoint, document.querySelector('.add-label-point'));
+        updateDatasetValues();
+        if (stackTypeInput.value === 'single') {
+          const dataInputsContainer = document.querySelector('.data-inputs');
+          const newDataPoint = document.createElement('div');
+          newDataPoint.className = 'data-point';
+          const randomColor = `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
+          newDataPoint.innerHTML = `
+            <div class="data-point-row">
+              <input type="number" class="data-value" placeholder="Value for Label ${document.querySelectorAll('.label-point').length}" step="0.01" />
+              <input type="color" class="data-color" value="${randomColor}" />
+              <button class="remove-data-point">Remove</button>
+            </div>
+          `;
+          dataInputsContainer.insertBefore(newDataPoint, document.querySelector('.add-data-point'));
+        }
+      });
+
+      // Add data point (Single Stack)
+      document.querySelector('.add-data-point').addEventListener('click', () => {
+        const dataInputsContainer = document.querySelector('.data-inputs');
+        const labels = document.querySelectorAll('.label-point .label-value');
+        const newDataPoint = document.createElement('div');
+        newDataPoint.className = 'data-point';
+        const randomColor = `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
+        newDataPoint.innerHTML = `
+          <div class="data-point-row">
+            <input type="number" class="data-value" placeholder="Value for Label ${labels.length}" step="0.01" />
+            <input type="color" class="data-color" value="${randomColor}" />
+            <button class="remove-data-point">Remove</button>
+          </div>
+        `;
+        dataInputsContainer.insertBefore(newDataPoint, document.querySelector('.add-data-point'));
+      });
+
+      // Add dataset point (Multi-Stack)
+      document.querySelector('.add-dataset-point').addEventListener('click', () => {
+        const datasetInputsContainer = document.querySelector('.dataset-inputs');
+        const labels = document.querySelectorAll('.label-point .label-value');
+        const newDatasetPoint = document.createElement('div');
+        newDatasetPoint.className = 'dataset-point';
+        const randomColor = `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
+        let valuesHtml = '';
+        labels.forEach((label, index) => {
+          valuesHtml += `<input type="number" class="data-value" placeholder="Value for ${label.value || `Label ${index + 1}`}" step="0.01" />`;
+        });
+        newDatasetPoint.innerHTML = `
+          <input type="text" class="dataset-label" placeholder="Dataset ${document.querySelectorAll('.dataset-point').length + 1}" />
+          <input type="color" class="dataset-color" value="${randomColor}" />
+          <div class="dataset-values">${valuesHtml}</div>
+          <button class="remove-dataset-point">Remove</button>
+        `;
+        datasetInputsContainer.insertBefore(newDatasetPoint, document.querySelector('.add-dataset-point'));
+      });
+
+      // Remove elements
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-label-point')) {
+          if (document.querySelectorAll('.label-point').length > 1) {
+            e.target.closest('.label-point').remove();
+            updateDatasetValues();
+            if (stackTypeInput.value === 'single') {
+              const dataPoints = document.querySelectorAll('.data-point');
+              if (dataPoints.length > 1) {
+                dataPoints[dataPoints.length - 1].remove();
+              }
+            }
           }
-        });
-        updateSingleBarWarning();
-      } catch (error) {
-        console.error('Error initializing chart:', error);
-      }
-    });
+        }
+        if (e.target.classList.contains('remove-data-point')) {
+          if (document.querySelectorAll('.data-point').length > 1) {
+            e.target.closest('.data-point').remove();
+          }
+        }
+        if (e.target.classList.contains('remove-dataset-point')) {
+          if (document.querySelectorAll('.dataset-point').length > 1) {
+            e.target.closest('.dataset-point').remove();
+          }
+        }
+      });
 
-    document.addEventListener('click', (e) => {
-      if (e.target !== document.querySelector('.global--chart--button--copy')) {
-        console.log('Click detected outside copy button:', e.target);
-      }
+      // Update range value displays
+      document.addEventListener('input', (e) => {
+        if (e.target.classList.contains('chart-size-input') || 
+            e.target.classList.contains('donut-hole-size-input') ||
+            e.target.classList.contains('stack-gap-input')) {
+          const valueDisplay = e.target.nextElementSibling;
+          if (valueDisplay && 
+              (valueDisplay.classList.contains('chart-size-value') || 
+               valueDisplay.classList.contains('donut-hole-size-value') ||
+               valueDisplay.classList.contains('stack-gap-value'))) {
+            valueDisplay.textContent = `${e.target.value}${e.target.classList.contains('donut-hole-size-input') ? '%' : 'px'}`;
+          }
+        }
+      });
+
+      // Toggle advanced settings
+      document.querySelector('.toggle-advanced-settings').addEventListener('click', () => {
+        const advancedSettings = document.querySelector('.advanced-settings');
+        const isVisible = advancedSettings.style.display === 'block';
+        advancedSettings.style.display = isVisible ? 'none' : 'block';
+        document.querySelector('.toggle-advanced-settings').textContent = isVisible ? 'Show Advanced Settings' : 'Hide Advanced Settings';
+      });
+
+      // Update chart
+      updateButton.addEventListener('click', () => {
+        try {
+          const title = document.querySelector('.chart-title-input').value || 'Donut Chart';
+          const bgColor = document.querySelector('.background-color-input').value || '#ffffff';
+          const textColor = document.querySelector('.text-color-input').value || '#000000';
+          const showLegend = document.querySelector('.show-legend-input').checked;
+          const chartSize = parseInt(document.querySelector('.chart-size-input').value) || 600;
+          const donutHoleSize = parseInt(document.querySelector('.donut-hole-size-input').value) || 50;
+          const stackGap = parseInt(document.querySelector('.stack-gap-input').value) || 5;
+          const showDonutNumbers = document.querySelector('#show-donut-numbers').checked;
+          const donutNumbersColor = document.querySelector('#donut-numbers-color').value || '#000000';
+          const isMultiStack = stackTypeInput.value === 'multi';
+
+          currentBgColor = bgColor;
+          updateChartDimensions(chartSize);
+
+          if (chartInstance) {
+            chartInstance.destroy();
+          }
+
+          const ctx = chartCanvas.getContext('2d');
+          const labels = Array.from(document.querySelectorAll('.label-point .label-value')).map((input, index) => input.value || `Category ${index + 1}`);
+
+          let datasets = [];
+          if (isMultiStack) {
+            // Multi-Stack: Concentric rings, one per dataset
+            const rawDatasets = Array.from(document.querySelectorAll('.dataset-point')).map((dataset, index) => ({
+              label: dataset.querySelector('.dataset-label').value || `Dataset ${index + 1}`,
+              color: dataset.querySelector('.dataset-color').value || `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`,
+              values: Array.from(dataset.querySelectorAll('.data-value')).map(input => parseFloat(input.value) || 0)
+            }));
+
+            datasets = rawDatasets.map((dataset, index) => {
+              const ringThickness = 10;
+              const radius = 100 - index * (ringThickness + stackGap);
+              return {
+                label: dataset.label,
+                data: dataset.values,
+                backgroundColor: labels.map(() => hexToRgba(dataset.color, 0.8)), // Use dataset color for all segments
+                borderColor: labels.map(() => dataset.color),
+                borderWidth: 1,
+                radius: `${radius}%`,
+                cutout: `${donutHoleSize}%`
+              };
+            });
+          } else {
+            // Single Stack
+            const dataPoints = Array.from(document.querySelectorAll('.data-point'));
+            const dataValues = dataPoints.map(point => parseFloat(point.querySelector('.data-value').value) || 0);
+            const colors = dataPoints.map(point => {
+              const colorInput = point.querySelector('.data-color').value;
+              return colorInput || `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
+            });
+            datasets = [{
+              label: 'Dataset 1',
+              data: dataValues,
+              backgroundColor: colors.map(c => hexToRgba(c, 0.8)),
+              borderColor: colors,
+              borderWidth: 1,
+              radius: '100%',
+              cutout: `${donutHoleSize}%`
+            }];
+          }
+
+          chartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+              labels: labels.length > 0 ? labels : ['Category 1', 'Category 2', 'Category 3'],
+              datasets: datasets.length > 0 ? datasets : [{
+                label: 'Dataset 1',
+                data: [30, 50, 20],
+                backgroundColor: [
+                  hexToRgba('#007bff', 0.8),
+                  hexToRgba('#ff4d4d', 0.8),
+                  hexToRgba('#28a745', 0.8)
+                ],
+                borderColor: ['#007bff', '#ff4d4d', '#28a745'],
+                borderWidth: 1,
+                radius: '100%',
+                cutout: '50%'
+              }]
+            },
+            options: getChartOptions(title, textColor, showLegend, donutHoleSize, stackGap, showDonutNumbers, donutNumbersColor),
+            plugins: [{
+              id: 'customCanvasBackground',
+              beforeDraw: (chart) => {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.fillStyle = currentBgColor;
+                ctx.fillRect(0, 0, chart.width, chart.height);
+                ctx.restore();
+              }
+            }, ChartDataLabels]
+          });
+
+          document.querySelector('.global--chart--view').classList.add('fade');
+          setTimeout(() => {
+            document.querySelector('.global--chart--view').classList.remove('fade');
+          }, 400);
+        } catch (error) {
+          console.error('Error updating chart:', error);
+        }
+      });
+
+      // Download chart
+      downloadButton.addEventListener('click', () => {
+        try {
+          const canvasElement = document.getElementById('donutChart');
+          const chartSize = parseInt(document.querySelector('.chart-size-input').value) || 600;
+
+          const tempCanvas = document.createElement('canvas');
+          tempCanvas.width = chartSize;
+          tempCanvas.height = chartSize;
+          const tempCtx = tempCanvas.getContext('2d');
+
+          tempCtx.fillStyle = currentBgColor;
+          tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+          tempCtx.drawImage(canvasElement, 0, 0, chartSize, chartSize);
+
+          const link = document.createElement('a');
+          link.download = 'donut-chart.png';
+          link.href = tempCanvas.toDataURL('image/png', 1.0);
+          link.click();
+
+          showNotification(downloadNotification, 'Download started!');
+        } catch (error) {
+          console.error('Error downloading chart:', error);
+        }
+      });
+
+      // Copy to clipboard
+      copyButton.addEventListener('click', () => {
+        try {
+          const canvasElement = document.getElementById('donutChart');
+          const chartSize = parseInt(document.querySelector('.chart-size-input').value) || 600;
+
+          const tempCanvas = document.createElement('canvas');
+          tempCanvas.width = chartSize;
+          tempCanvas.height = chartSize;
+          const tempCtx = tempCanvas.getContext('2d');
+
+          tempCtx.fillStyle = currentBgColor;
+          tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+          tempCtx.drawImage(canvasElement, 0, 0, chartSize, chartSize);
+
+          tempCanvas.toBlob(blob => {
+            const item = new ClipboardItem({ 'image/png': blob });
+            navigator.clipboard.write([item]).then(() => {
+              showNotification(copyNotification, 'Copied to clipboard!');
+            }).catch(err => console.error('Error copying to clipboard:', err));
+          }, 'image/png', 1.0);
+        } catch (error) {
+          console.error('Error copying chart:', error);
+        }
+      });
+
+      // Initialize the chart
+      initializeChart();
     });
   </script>
 </body>
